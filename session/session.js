@@ -1,0 +1,31 @@
+const express=require("express")
+module.exports={
+usercheck:(req,res,next)=>{
+    if(req.session.user){
+        res.redirect('/')
+    }else{
+        next()
+    }
+},
+checklogout:(req,res,next)=>{
+    if(req.session.user){
+        next();
+    }else{
+        res.redirect("/login")
+    }
+},
+shop_usercheck:(req,res,next)=>{
+    if(req.session.user){
+       next()
+    }else{
+        res.redirect("/login")
+     }
+},
+admincheck:(req,res,next)=>{
+    if(req.session.admin){
+        next()
+    }else{
+        res.redirect("/admin/adminlogin")
+    }
+},
+}

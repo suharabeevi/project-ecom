@@ -1,0 +1,102 @@
+<div class="container mb-150 ml-180 mt-100">
+    <section class="">
+      <div class="col-md-8 box ">
+        <div class="container d-flex justify-content-center">
+          <div class="row w-75 mt-5">
+            <div class="col-md-12">
+              <h2 class="text-center">Add Banner</h2>
+              <form action="/admin/add-banner" method="post" enctype="multipart/form-data" id="myForm">
+                <label for="">Title</label>
+                <input type="text" name="title" class="form-control" id="title" />
+                <small id="error1" class="text-danger"></small>
+                <br />
+  
+                <label for="">Description</label>
+                <input type="text" name="description" class="form-control" id="description" />
+                <small id="error2" class="text-danger"></small>
+                <br />
+  
+                <label for="">Image</label>
+                <img class="w-25 h-25" src="/imgs/theme/upload.svg" id="imgView" alt="">
+                <input type="file" class="form-control" value="upload" multiple name="Image" required onchange="viewImage(event)" />
+                <small id="error3" class="text-danger"></small>
+                <button type="submit" class="btn btn-info text-white text-center mt-4" onclick="validate()">
+                  Submit
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+  <br />
+  
+  <script>
+    let selectedFile = null;
+  
+    function viewImage(event) {
+      selectedFile = event.target.files[0];
+      document.getElementById('imgView').src = URL.createObjectURL(selectedFile);
+    }
+  
+    function validate() {
+      const title = document.getElementById('title')
+      const description = document.getElementById('description')
+      const image = document.getElementById("imgView");
+  
+  
+      const titleValue = title.value.trim()
+      const descriptionValue = description.value.trim()
+  
+      let error1 = document.getElementById('error1')
+      let error2 = document.getElementById('error2')
+      let error3 = document.getElementById("error3")
+  
+      error1.innerText = ''
+      error2.innerText = ''
+      error3.innerText = ''
+  
+  
+      let flag = 1
+  
+      if (titleValue == '') {
+        error1.innerText = "Title field is required"
+        flag = 2
+      }
+  
+      if (descriptionValue == '') {
+        error2.innerText = "Description field is required"
+        flag = 2
+      }
+  
+      const allowedExtensions = /(\.jpg|\.jpeg|\.png|\.avif|\.webp)$/i;
+      if (!allowedExtensions.exec(selectedFile.name)) {
+        error3.innerText = "Please select a valid image format.";
+        flag = 2;
+      }
+  
+      if (flag === 1) {
+        document.getElementById('myForm').submit()
+      }
+    }
+  </script>
+  
+  
+  
+  
+  
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+  
+    h1 {
+      text-align: center;
+    }
+  
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+  </style>

@@ -1,0 +1,69 @@
+<div class="card-body">
+    <div class="d-flex justify-content-end mb-2">
+      <a href="/admin/add-banner" class="btn btn-primary">Create New</a>
+    </div>
+    <div class="table-responsive">
+      <table class="table align-middle table-nowrap mb-0">
+        <thead class="table-light">
+            
+          <tr>
+            <th class="align-middle" scope="col">title</th>
+            <th class="align-middle" scope="col">Created Date</th>
+            <th class="align-middle" scope="col">image</th>
+            <th class="align-middle" scope="col"></th>
+          </tr>
+        </thead>
+        <% for(let i= 0; i< locals.banner.length; i++) { %>
+        <tbody>
+         
+          <tr>
+            <td><a href="#" class="fw-bold"><%= locals.banner[i].title %></a></td>
+                                                                         <td><%= banner[i].createdAt.toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' }) %></td> 
+            <td>
+              <img src="<%= banner[i].images.image1 %>" alt="" style="width:70px;height:auto ">
+            </td>
+            <td>
+              <a href="" class="btn btn-info text-white"> Edit Banner </a>
+              <button class="btn btn-danger" onclick="deleteBanner('<%=banner[i]._id%>')" >Delete</button>
+            </td>
+          </tr>
+          <%}  %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <script>
+    function deleteBanner(deleteId)
+    {
+      $.ajax({
+        url:'/admin/delete-banner/'+deleteId,
+        method:'DELETE',
+        success:(response)=>
+        {
+          console.log(response);
+          location.reload() 
+        }
+      })
+    }
+  </script>
+
+  
+<style>
+
+  body {
+    font-family: Arial, sans-serif;
+  }
+  
+  h1 {
+    text-align: center;
+  }
+  
+ 
+  label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  
+  
+  </style>

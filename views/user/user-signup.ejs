@@ -1,0 +1,356 @@
+<main>
+  <section class="login-page d-flex align-items-center">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-1"></div>
+        <div class="col-lg-6">
+          <div class="login_wrap widget-taber-content p-30 background-white border-radius-5 text-center">
+            <div class="padding_eight_all bg-white">
+              <div class="heading_s1">
+                <b>
+                  <h2 class="mb-30">Create Account</h2>
+                </b>
+              </div>
+              <!-- signup.ejs -->
+              <div>
+                <p id="error-msg" style="color: red;"></p>
+              </div>
+              <p class="mb-50 font-sm">
+                <!-- Your personal data will be used to support your experience throughout this website, to manage access to your account, and for other purposes described in our privacy policy -->
+              </p>
+
+              <form id="signup-form" >
+                <div class="form-group">
+                  <input id="firstname" type="text" required="" name="firstname" placeholder="firstname">
+                  <small class="text-danger"></small>
+
+                </div>
+
+                <div class="form-group">
+                  <input id="email" type="text" required="" name="email" placeholder="yourname@gmail.com">
+                  <small class="text-danger"></small>
+                </div>
+
+                <div class="form-group">
+                  <input id="mobile" required="" type="number" name="contact" placeholder="Contact">
+                  <small class="text-danger"></small>
+                </div>
+
+                <div class="form-group">
+                  <input id="password" required="" type="password" name="password" placeholder="Password">
+                  <label for="show-password" class="show-password-label">
+                  
+                                                
+                      <span class="password-toggle" onclick="togglePasswordVisibility()">
+                          <i id="eye-icon" class="fa fa-eye-slash"></i>
+                      </span>
+             
+                  </label>
+                  <small class="text-danger"></small>
+
+                </div>
+                <div class="form-group">
+                  <input id="confirmPassword" required="" type="password" name="re_password"
+                    placeholder="Confirm password">
+                  <label for="show-password" class="show-password-label">
+                    <span class="password-toggle" onclick="rtogglePasswordVisibility()">
+                      <i id="reye-icon" class="fa fa-eye-slash"></i>
+                  </span>
+                  </label>
+                  <small class="text-danger"></small>
+                </div>
+                <!-- <div class="form-group">
+                                        <input required="" type="date" name="dob" placeholder="date of birth">
+                                    </div> -->
+                <div class="login_footer form-group">
+                  <div class="chek-form">
+                    <div class="custome-checkbox">
+                      <input class="form-check-input" type="checkbox" name="checkbox" id="exampleCheckbox12" value="">
+                      <label class="form-check-label" for="exampleCheckbox12"><span>I agree to terms &amp;
+                          Policy.</span></label>
+                    </div>
+                  </div>
+                  <a href="page-privacy-policy.html"><i class="fi-rs-book-alt mr-5 text-muted"></i>Lean more</a>
+                </div>
+                <!-- <button href="/otplogin" class="btn btn-sm btn-brand rounded font-sm mt-15" name="login">OTP login</button> -->
+                <div class="form-group">
+                  <button onclick="return validateLoginForm()" type="submit" class="btn btn-fill-out btn-block hover-up"
+                    name="login" id="signup-page">Submit &amp; Register</button>
+                  <!-- <small id="signup-form"></small> -->
+                </div>
+              </form>
+              <div class="divider-text-center mt-15 mb-15">
+                <span> or</span>
+              </div>
+              <!-- <ul class="btn-login list_none text-center mb-15">
+                                    <li><a href="#" class="btn btn-facebook hover-up mb-lg-0 mb-sm-4">Login With Facebook</a></li>
+                                    <li><a href="#" class="btn btn-google hover-up">Login With Google</a></li>
+                                </ul> -->
+              <div class="text-muted text-center">Already have an account? <a href="/login">Sign in now</a></div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-1"></div>
+      </div>
+    </div>
+  </section>
+</main>
+<style>
+  .form-group {
+    position: relative;
+  }
+
+  .show-password-label {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    margin-top: -8px;
+    /* Adjust this value to decrease or increase the vertical position of the checkbox */
+  }
+
+  .show-password-label input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    margin: 0;
+  }
+</style>
+
+<script>
+
+  const nameEl = document.querySelector('#firstname')
+  const emailEl = document.querySelector('#email')
+  const phoneEl = document.querySelector('#mobile')
+  const passwordEl = document.querySelector('#password')
+  const confirmPasswordEl = document.querySelector('#confirmPassword')
+
+  const form = document.querySelector('#signup-form')
+
+  const checkUsername = () => {
+    let valid = false
+
+    const min = 3
+    const max = 25
+
+    const username = nameEl.value.trim()
+
+    if (!isRequired(username)) {
+      showError(nameEl, 'Username cannot be blank.')
+    } else if (!isBetween(username.length, min, max)) {
+      showError(nameEl, `Username must be between ${min} and ${max} characters.`)
+    } else {
+      showSuccess(nameEl)
+      valid = true
+    }
+    return valid
+  }
+  const checkEmail = () => {
+    let valid = false
+    const email = emailEl.value.trim()
+    if (!isRequired(email)) {
+      showError(emailEl, 'Email cannot be blank.')
+    } else if (!isEmailValid(email)) {
+      showError(emailEl, 'Email is not valid.')
+    } else {
+      showSuccess(emailEl)
+      valid = true
+    }
+    return valid
+  }
+
+  const checkMobile = () => {
+    let valid = false
+    const mobile = phoneEl.value.trim()
+    if (!isRequired(mobile)) {
+      showError(phoneEl, 'Phone number cannot be blank.')
+    } else if (!isMobileValid(mobile)) {
+      showError(phoneEl, 'Mobile is not valid.')
+    } else {
+      showSuccess(phoneEl)
+      valid = true
+    }
+    return valid
+  }
+
+  const checkPassword = () => {
+    let valid = false
+
+    const password = passwordEl.value.trim()
+
+    if (!isRequired(password)) {
+      showError(passwordEl, 'Password cannot be blank.')
+    } else if (!isPasswordSecure(password)) {
+      showError(passwordEl, 'Password must has at least 8 characters that include at least 1 lowercase character, 1 uppercase characters, 1 number, and 1 special character in (!@#$%^&*)')
+    } else {
+      showSuccess(passwordEl)
+      valid = true
+    }
+    return valid
+  }
+
+  const checkConfirmPassword = () => {
+    let valid = false
+    // check confirm password
+    const confirmPassword = confirmPasswordEl.value.trim()
+    const password = passwordEl.value.trim()
+
+    if (!isRequired(confirmPassword)) {
+      showError(confirmPasswordEl, 'Please enter the password again')
+    } else if (password !== confirmPassword) {
+      showError(confirmPasswordEl, 'The password does not match')
+    } else {
+      showSuccess(confirmPasswordEl)
+      valid = true
+    }
+
+    return valid
+  }
+
+  const isEmailValid = (email) => {
+    const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    return re.test(email)
+  }
+  const isMobileValid = (mobile) => {
+    const re = /^(?:\+91|0)?[6-9]\d{9}$/
+    return re.test(mobile)
+  }
+
+  const isPasswordSecure = (password) => {
+    const re = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%?&])[A-Za-z\d@$!%?&]{8,}$/
+
+
+    return re.test(password)
+  }
+
+  const isRequired = value => value !== ''
+  const isBetween = (length, min, max) => !(length < min || length > max)
+
+  const showError = (input, message) => {
+    // get the form-field element
+    const formField = input.parentElement
+    // add the error class
+    formField.classList.remove('success')
+    formField.classList.add('error')
+
+    // show the error message
+    const error = formField.querySelector('small')
+    error.textContent = message
+  }
+
+  const showSuccess = (input) => {
+    // get the form-field element
+    const formField = input.parentElement
+
+    // remove the error class
+    formField.classList.remove('error')
+    formField.classList.add('success')
+
+    // hide the error message
+    const error = formField.querySelector('small')
+    error.textContent = ''
+  }
+
+  const validateLoginForm = () => {
+    const isUsernameValid = checkUsername()
+    const isEmailValid = checkEmail()
+    const isMobileValid = checkMobile()
+    const isPasswordValid = checkPassword()
+    const isConfirmPasswordValid = checkConfirmPassword()
+
+    const isFormValid = isUsernameValid &&
+      isEmailValid && isMobileValid &&
+      isPasswordValid && isConfirmPasswordValid
+    if (isFormValid) return true
+    else return false
+
+  }
+  const debounce = (fn, delay = 500) => {
+    let timeoutId
+    return (...args) => {
+      // cancel the previous timer
+      if (timeoutId) {
+        clearTimeout(timeoutId)
+      }
+      // setup a new timer
+      timeoutId = setTimeout(() => {
+        fn.apply(null, args)
+      }, delay)
+    }
+  }
+
+
+
+  form.addEventListener('input', debounce(function (e) {
+    switch (e.target.id) {
+      case 'firstname':
+        checkUsername()
+        break
+      case 'email':
+        checkEmail()
+        break
+      case 'mobile':
+        checkMobile()
+        break
+      case 'password':
+        checkPassword()
+        break
+      case 'confirmPassword':
+        checkConfirmPassword()
+        break
+    }
+  }))
+
+  function rtogglePasswordVisibility() {
+    var passwordInput = document.getElementById("confirmPassword");
+    var eyeIcon = document.getElementById("reye-icon");
+
+    if (passwordInput.type === "password") {
+        passwordInput.type = "text";
+        eyeIcon.classList.remove("fa-eye-slash");
+        eyeIcon.classList.add("fa-eye");
+    } else {
+        passwordInput.type = "password";
+        eyeIcon.classList.remove("fa-eye");
+        eyeIcon.classList.add("fa-eye-slash");
+    }
+}
+
+  function togglePasswordVisibility() {
+    var passwordInput = document.getElementById("password");
+    var eyeIcon = document.getElementById("eye-icon");
+
+    if (passwordInput.type === "password") {
+        passwordInput.type = "text";
+        eyeIcon.classList.remove("fa-eye-slash");
+        eyeIcon.classList.add("fa-eye");
+    } else {
+        passwordInput.type = "password";
+        eyeIcon.classList.remove("fa-eye");
+        eyeIcon.classList.add("fa-eye-slash");
+    }
+}
+
+$('#signup-form').submit((e)=>{
+  e.preventDefault()
+  $.ajax({
+    method:"POST",
+    url:'/signup',
+    data:$('#signup-form').serialize(),
+    success:(response)=>{
+      if(response?.status){
+        location.href = '/login'
+      }else {
+        let errElement = document.querySelector('#error-msg')
+        // console.log(errElement)
+        errElement.innerHTML = response?.errorMsg
+      }
+    },
+    error:(err)=>{
+      console.log(err)
+    }
+  })
+})
+
+
+</script>

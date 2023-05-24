@@ -1,0 +1,268 @@
+<section class="mt-50 mb-50">
+    <div class="container">
+        <div class="row flex-row-reverse">
+            <div class="col-lg-9">
+                <div class="shop-product-fillter">
+                    <div class="totall-product">
+                        <p> We found <strong class="text-brand">688</strong> items for you!</p>
+                    </div>
+
+                    <header class="card-header bg-dark bg-gradient rounded-3 mb-4 mx-auto" style="padding: 0.25rem;">
+  <div class="container">
+    <form id="formId" class="row gx-3 align-items-center">
+      <div class="col-md-4">
+        <div class="input-group">
+          <span class="d-inline-block text-light align-middle mt-2">Search:</span>
+          <input type="text" class="form-control form-control-lg border-0 bg-transparent text-light" name="search" id="search">
+          <button class="btn btn-sm btn-dark" type="button"><i class="bi bi-search"></i></button>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="input-group">
+          <span class="d-inline-block text-light align-middle mt-2">Sort:</span>
+          <select name="sort" id="sort" class="form-select align-middle">
+            <option value="-createdAt">Newest</option>
+            <option value="createdAt">Oldest</option>
+            <option value="-price">Price high to low</option>
+            <option value="price">Price low to high</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="input-group">
+          <span class="d-inline-block text-light align-middle mt-2">Filter:</span>
+          <select name="filter" id="filter" class="form-select align-middle">
+            <option value="category=Kids">Kids</option>
+            <option value="category=women">women</option>
+            <option value="category=mens">mens</option>
+            <option value="category=ladies">ladies</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <button type="button" class="btn btn-sm btn-dark" onclick="userQuery(1,event)">Search</button>
+      </div>
+    </form>
+  </div>
+</header>
+
+                    <!-- <div class="sort-by-product-area">
+                        <div class="sort-by-cover mr-10">
+                            <div class="sort-by-product-wrap">
+                                <div class="sort-by">
+                                    <span><i class="fi-rs-apps"></i>Show:</span>
+                                </div>
+                                <div class="sort-by-dropdown-wrap">
+                                    <span> 50 <i class="fi-rs-angle-small-down"></i></span>
+                                </div>
+                            </div>
+                            <div class="sort-by-dropdown">
+                                <ul>
+                                    <li><a class="active" href="#">50</a></li>
+                                    <li><a href="#">100</a></li>
+                                    <li><a href="#">150</a></li>
+                                    <li><a href="#">200</a></li>
+                                    <li><a href="#">All</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="sort-by-cover">
+                            <div class="sort-by-product-wrap">
+                                <div class="sort-by">
+                                    <span><i class="fi-rs-apps-sort"></i>Sort by:</span>
+                                </div>
+                                <div class="sort-by-dropdown-wrap">
+                                    <span> Featured <i class="fi-rs-angle-small-down"></i></span>
+                                </div>
+                            </div>
+                            <div class="sort-by-dropdown">
+                                <ul>
+                                    <li><a class="active" href="#">Featured</a></li>
+                                    <li><a href="#">Price: Low to High</a></li>
+                                    <li><a href="#">Price: High to Low</a></li>
+                                    <li><a href="#">Release Date</a></li>
+                                    <li><a href="#">Avg. Rating</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div> -->
+                </div>
+                <div class="tab-content wow fadeIn animated" id="myTabContent">
+                  <div class="tab-pane fade show active" id="tab-one" role="tabpanel" aria-labelledby="tab-one">
+                      <div class="row product-grid-4">
+                          <% if (!productResult) { %>
+                          <% for (let i = 0; i < locals.data.length; i++) { %>
+                              <% if (locals.data[i].status === true) { %>
+                              <div class="col-lg-3 col-md-4 col-12 col-sm-6">
+                                  <div class="product-cart-wrap mb-30">
+                                      <div class="product-img-action-wrap">
+                                          <div class="product-img product-img-zoom">
+                                              <a href='/productdetails?productid=<%= locals.data[i]._id%>'>
+                                                  <img class="default-img" src="<%= locals.data[i].images.image1%>" alt="" style="width: 100%; height: auto;">
+                                                  <img class="hover-img" src="<%= locals.data[i].images.image2%>" alt="" style="width: 100%; height: auto;">
+                                              </a>
+                                          </div>
+                                          <div class="product-badges product-badges-position product-badges-mrg">
+                                              <span class="hot">New</span>
+                                          </div>
+                                      </div>
+                                      <div class="product-content-wrap">
+                                          <div class="product-category">
+                                              <a href="shop-grid-right.html"><%= locals.data[i].categoryname%></a>
+                                          </div>
+                                          <h2><a href="shop-product-right.html"><%= locals.data[i].producttitle%></a></h2>
+                                          <div class="rating-result" title="9%">
+                                              <span>
+                                                  <span><%= locals.data[i].discount%>%</span>
+                                              </span>
+                                          </div>
+                                          <div class="product-price">
+                                              <span><%= locals.discounts[i] %></span>
+                                              <span class="old-price"><%= locals.data[i].price%></span>
+                                          </div>
+                                          <div class="product-action-1 show">
+                                              <a aria-label="Add To Cart" class="action-btn hover-up" onclick="Addtocart('<%= locals.data[i]._id%>')">
+                                                  <i class="fi-rs-shopping-bag-add"></i>
+                                              </a>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                              <input type="hidden" value="<%=productResult%>" id="search-status">
+                              <% } %>
+                          <% } %>
+                          <% } else { %>
+                          <input type="hidden" value="<%=productResult%>" id="search-status">
+                          <% } %>
+                      </div>
+                  </div>
+              </div>
+              
+                <!--pagination-->
+                <div class="pagination-area mt-15 mb-sm-5 mb-lg-0">
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination justify-content-start">
+                            
+                            <% for(let i=1;i<=pages2;i++){%>
+                                <li class="page-item active">
+                                  <a class="page-link" href="/shoplist?page=<%=i%>"
+                                    ><%= i%></a
+                                  >
+                                </li>
+                                <%}%>
+                                 
+                <li class="page-item"><a class="page-link" href="#"><i class="material-icons md-chevron_right"></i></a></li>
+                        
+                                
+                        </ul>
+                    </nav>
+                </div>
+                
+
+            </div>
+            <div class="col-lg-3 primary-sidebar sticky-sidebar">
+                <div class="widget-category mb-30">
+                    <h5 class="section-title style-1 mb-30 wow fadeIn animated">Category</h5>
+                    <% for(let i=0; i< locals.category.length; i++) { %>
+                        <%if (locals.category[i].status===true) {%>
+                    <ul class="categories">
+                        <li><a href="/categoryfilter?name=<%=locals.category[i].name %>">
+                                    
+                            <%=locals.category[i].name %></a></li>
+                    </ul>
+                    <% } %>
+                     <%} %>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+     function Addtocart(proId) {
+    $.ajax({
+      url: '/Usercart/' + proId,
+      method: 'get',
+      data: proId,
+      success: (response) => {
+        if(response.outofstock){
+            
+            Swal.fire({
+                title: 'OUT OF STOCK',
+                text: '',
+                icon: 'warning',
+                timer: 3000
+            })
+        }else{
+
+            Swal.fire({
+                title: 'Add To Cart',
+                text: 'Added to cart successfully',
+                icon: 'success',
+                timer: 3000
+            }).then(()=>{
+                location.href='/shoplist'
+            })
+            
+        }
+      }
+    })
+    
+  }
+
+
+  function userQuery(pageNumber = 1) {
+    event.preventDefault();
+    $.ajax({
+      url: '/shoplist',
+      method: 'GET',
+      data: $('#formId').serialize() + '&page=' + pageNumber,
+      success: function(response) {
+        console.log(response,'+++===')
+        if (response) {
+            console.log(response,'ressss---');
+          var $response = $(response);
+          
+          var $newProductGrid = $response.find('.product-grid-4');
+
+          $('.product-grid-4').replaceWith($newProductGrid);
+          const status = document.getElementById('search-status').value
+          console.log(status)
+          if (status == 'true') {
+            Swal.fire({
+              icon: 'info',
+              title: 'Info',
+              text: 'Searched Products doesn\'t exist, Sorry!!',
+              timer: 3000
+            }).then(() => {
+              location.reload()
+
+            });
+
+          }
+
+        }
+
+      },
+
+      error: function(error) {
+        console.log(error);
+      }
+    });
+  }
+
+
+  // $(document).on('click', '.pagination .page-link', function(e) {
+  //   e.preventDefault();
+  //   let pageNumber = $(this).data('page');
+  //   userQuery(pageNumber);
+  // });
+
+  // $(document).on('click', '#searchBtn', function(e) {
+  //   e.preventDefault();
+  //   userQuery();
+  // });
+
+
+  
+</script>

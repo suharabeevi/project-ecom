@@ -1,0 +1,38 @@
+
+<form action="/admin/editcategory/<%=singledata._id%>" method="post">
+<section class="content-main">
+    <div class="content-header">
+        <div>
+            <h2 class="content-title card-title">Edit category</h2>
+            <p>Add, edit or delete a category</p>
+        </div>
+        <div>
+            <input type="text" placeholder="Search Categories" class="form-control bg-white">
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-3">
+                    <form action="/admin/editcategory" method="post">
+                        <div class="mb-4">
+                            <label for="product_name" class="form-label">Name</label>
+                            <input type="text" placeholder="Type here" name="category" class="form-control"  value="<%=singledata.name%>" id="product_name" />
+                        </div>
+                        <!-- <div class="mb-4">
+                            <label for="product_slug" class="form-label">Slug</label>
+                            
+                        </div> -->
+                       
+                       
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary" >Create category</button>
+                        </div>
+                    </form>
+                </div>
+                <!-- .col// -->
+            </div> <!-- .row // -->
+        </div> <!-- card body .// -->
+    </div> <!-- card .// -->
+</section>
+</form>

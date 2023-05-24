@@ -1,0 +1,115 @@
+<div class="screen-overlay"></div>
+<aside class="navbar-aside" id="offcanvas_aside">
+    <div class="aside-top">
+        <a href="index.html" class="brand-wrap">
+            <img src="/asset/imgs/theme/logo.svg" class="logo" alt="Evara Dashboard">
+        </a>
+        <div>
+            <button class="btn btn-icon btn-aside-minimize">
+                <i class="text-muted material-icons md-menu_open"></i>
+            </button>
+        </div>
+    </div>
+    <nav>
+        <ul class="menu-aside">
+            <li class="menu-item ">
+                <a class="menu-link" href="/admin">
+                    <i class="icon material-icons md-home"></i>
+                    <span class="text">Dashboard</span>
+                </a>
+            </li>
+
+            <li class="menu-item ">
+                <a class="menu-link" href="/admin/productlist"><i class="icon material-icons md-shopping_bag"></i>
+                  
+                    <span class="text">product list</span>
+                </a>
+            </li>
+
+            <li class="menu-item ">
+                <a class="menu-link" href="/admin/categories">
+                    <i class="icon material-icons md-home"></i>
+                    <span class="text">Category list</span>
+                </a>
+            </li>
+
+            <li class="menu-item ">
+                <a class="menu-link" href="/admin/add-coupon">
+                    <i class="icon material-icons md-add_box"></i>
+                    <span class="text">Add Coupon</span>
+                </a>
+            </li>
+
+            <li class="menu-item ">
+                <a class="menu-link" href="/admin/coupon-list">
+                    <i class="icon material-icons md-home"></i>
+                    <span class="text">Coupon list</span>
+                </a>
+            </li>
+            <li class="menu-item ">
+                <a class="menu-link" href="/admin/orderslist"> <i class="icon material-icons md-shopping_cart"></i>
+                    
+                    <span class="text">orders list</span>
+                </a>
+            </li>
+            <li class="menu-item ">
+                <a class="menu-link" href="/admin/userslist">
+                    <i class="icon material-icons md-home"></i>
+                    <span class="text">User list</span>
+                </a>
+            </li>
+            <li class="menu-item ">
+                <a class="menu-link" href="/admin/add-banner">
+                    <i class="icon material-icons md-add_box"></i>
+                    <span class="text">Add banner</span>
+                </a>
+            </li>
+           
+            <li class="menu-item ">
+                <a class="menu-link" href="/admin/banner-list">
+                    <i class="icon material-icons md-add_box"></i>
+                    <span class="text">List Banner</span>
+                </a>
+            </li>
+               
+                
+                </ul>
+            <br>
+            <br>
+        </nav>
+    </aside>
+    <!-- <script>
+        // get all the 'a' elements in the navigation bar
+        var navLinks = document.querySelectorAll('.menu-aside a');
+      
+        // loop through the links and check if the 'href' attribute matches the current URL
+        for (var i = 0; i < navLinks.length; i++) {
+          if (navLinks[i].href === window.location.href) {
+            // add the 'active' class to the corresponding 'li' element
+            navLinks[i].parentNode.classList.add('indication');
+            break;
+          }
+        }
+      </script> -->
+      <script>
+        // Get the current URL pathname
+        const currentPathname = window.location.pathname;
+    
+        // Get all the menu items
+        const menuItems = document.querySelectorAll('.menu-item');
+    
+        // Loop through each menu item and check if its pathname matches the current URL pathname
+        menuItems.forEach(item => {
+            const link = item.querySelector('a');
+            const linkPathname = new URL(link.href).pathname;
+    
+            // Check if the current pathname matches the link's pathname
+            if (currentPathname === linkPathname) {
+                item.classList.add('active');
+            }
+        });
+    </script>
+    
+    
+    
+    

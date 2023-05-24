@@ -1,0 +1,213 @@
+
+<main class="main">       
+    <section class="home-slider position-relative pt-25 pb-20">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-9">
+              <div class="position-relative">
+                <div
+                  class="hero-slider-1 style-3 dot-style-1 dot-style-1-position-1"
+                >
+                <% for(let i= 0; i<locals.Banner.length;i++) { %>
+                  <div class="single-hero-slider single-animation-wrap">
+                    <div class="container">
+                      <div class="slider-1-height-3 slider-animated-1">
+                        <div class="hero-slider-content-2">
+                          <h4 class="animated"><%=Banner[i].title%></h4>
+                          <h2 class="animated fw-900"><%=Banner[i].description%></h2>
+                          <h1 class="animated fw-900 text-brand">
+                            On All Products
+                          </h1>
+                          <p class="animated">
+                          
+                          </p>
+                          <a
+                            class="animated btn btn-brush btn-brush-3"
+                            href="/shoplist"
+                          >
+                         shop now
+                          </a>
+                        </div class="">
+                        <div class="single-slider-img single-slider-img-1 col-lg-7 col-md-6">
+                            <img class="animated slider-1-1" src="<%= Banner[i].images.image1%>" alt="">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <% } %>
+          
+        
+        
+    </section>
+    <!-- <section class="featured section-padding position-relative">            
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-2 col-md-4 mb-md-3 mb-lg-0">
+                    <div class="banner-features wow fadeIn animated hover-up">
+                        <img src="assets/imgs/theme/icons/feature-1.png" alt="">
+                        <h4 class="bg-1">Free Shipping</h4>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-4 mb-md-3 mb-lg-0">
+                    <div class="banner-features wow fadeIn animated hover-up">
+                        <img src="assets/imgs/theme/icons/feature-2.png" alt="">
+                        <h4 class="bg-3">Online Order</h4>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-4 mb-md-3 mb-lg-0">
+                    <div class="banner-features wow fadeIn animated hover-up">
+                        <img src="assets/imgs/theme/icons/feature-3.png" alt="">
+                        <h4 class="bg-2">Save Money</h4>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-4 mb-md-3 mb-lg-0">
+                    <div class="banner-features wow fadeIn animated hover-up">
+                        <img src="assets/imgs/theme/icons/feature-4.png" alt="">
+                        <h4 class="bg-4">Promotions</h4>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-4 mb-md-3 mb-lg-0">
+                    <div class="banner-features wow fadeIn animated hover-up">
+                        <img src="assets/imgs/theme/icons/feature-5.png" alt="">
+                        <h4 class="bg-5">Happy Sell</h4>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-4 mb-md-3 mb-lg-0">
+                    <div class="banner-features wow fadeIn animated hover-up">
+                        <img src="assets/imgs/theme/icons/feature-6.png" alt="">
+                        <h4 class="bg-6">24/7 Support</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section> -->
+    
+    <!-- <section class="banner-2 section-padding pb-0">
+        <div class="container">
+            <div class="banner-img banner-big wow fadeIn animated f-none">
+                <img src="assets/imgs/banner/banner-4.png" alt="">
+                <div class="banner-text d-md-block d-none">
+                    <h4 class="mb-15 mt-40 text-brand">Repair Services</h4>
+                    <h1 class="fw-600 mb-20">We're an Apple <br>Authorised Service Provider</h1>
+                    <a href="shop-grid-right.html" class="btn">Learn More <i class="fi-rs-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </section> -->
+    <!-- <section class="popular-categories section-padding mt-15 mb-25">
+        <div class="container wow fadeIn animated">
+            <h3 class="section-title mb-20"><span>Popular</span> Categories</h3>
+            <div class="carausel-6-columns-cover position-relative">
+                <div class="slider-arrow slider-arrow-2 carausel-6-columns-arrow" id="carausel-6-columns-arrows"></div>
+                <div class="carausel-6-columns" id="carausel-6-columns">
+                    <div class="card-1">
+                        <figure class=" img-hover-scale overflow-hidden">
+                            <a href="shop-grid-right.html"><img src="assets/imgs/shop/category-thumb-1.jpg" alt=""></a>
+                        </figure>
+                        <h5><a href="shop-grid-right.html">T-Shirt</a></h5>
+                    </div>
+                    <div class="card-1">
+                        <figure class=" img-hover-scale overflow-hidden">
+                            <a href="shop-grid-right.html"> <img src="assets/imgs/shop/category-thumb-2.jpg" alt=""></a>
+                        </figure>
+                        <h5><a href="shop-grid-right.html">Bags</a></h5>
+                    </div>
+                    <div class="card-1">
+                        <figure class=" img-hover-scale overflow-hidden">
+                            <a href="shop-grid-right.html"><img src="assets/imgs/shop/category-thumb-3.jpg" alt=""></a>
+                        </figure>
+                        <h5><a href="shop-grid-right.html">Sandan</a></h5>
+                    </div>
+                    <div class="card-1">
+                        <figure class=" img-hover-scale overflow-hidden">
+                            <a href="shop-grid-right.html"><img src="assets/imgs/shop/category-thumb-4.jpg" alt=""></a>
+                        </figure>
+                        <h5><a href="shop-grid-right.html">Scarf Cap</a></h5>
+                    </div>
+                    <div class="card-1">
+                        <figure class=" img-hover-scale overflow-hidden">
+                            <a href="shop-grid-right.html"><img src="assets/imgs/shop/category-thumb-5.jpg" alt=""></a>
+                        </figure>
+                        <h5><a href="shop-grid-right.html">Shoes</a></h5>
+                    </div>
+                    <div class="card-1">
+                        <figure class=" img-hover-scale overflow-hidden">
+                            <a href="shop-grid-right.html"><img src="assets/imgs/shop/category-thumb-6.jpg" alt=""></a>
+                        </figure>
+                        <h5><a href="shop-grid-right.html">Pillowcase</a></h5>
+                    </div>
+                    <div class="card-1">
+                        <figure class=" img-hover-scale overflow-hidden">
+                            <a href="shop-grid-right.html"><img src="assets/imgs/shop/category-thumb-7.jpg" alt=""></a>
+                        </figure>
+                        <h5><a href="shop-grid-right.html">Jumpsuits</a></h5>
+                    </div>
+                    <div class="card-1">
+                        <figure class=" img-hover-scale overflow-hidden">
+                            <a href="shop-grid-right.html"><img src="assets/imgs/shop/category-thumb-8.jpg" alt=""></a>
+                        </figure>
+                        <h5><a href="shop-grid-right.html">Hats</a></h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section> -->
+    <!--  -->
+    
+    <!-- <section class="section-padding">
+        <div class="container">
+            <h3 class="section-title mb-20 wow fadeIn animated"><span>Featured</span> Brands</h3>
+            <div class="carausel-6-columns-cover position-relative wow fadeIn animated">
+                <div class="slider-arrow slider-arrow-2 carausel-6-columns-arrow" id="carausel-6-columns-3-arrows"></div>
+                <div class="carausel-6-columns text-center" id="carausel-6-columns-3">
+                    <div class="brand-logo">
+                        <img class="img-grey-hover" src="assets/imgs/banner/brand-1.png" alt="">
+                    </div>
+                    <div class="brand-logo">
+                        <img class="img-grey-hover" src="assets/imgs/banner/brand-2.png" alt="">
+                    </div>
+                    <div class="brand-logo">
+                        <img class="img-grey-hover" src="assets/imgs/banner/brand-3.png" alt="">
+                    </div>
+                    <div class="brand-logo">
+                        <img class="img-grey-hover" src="assets/imgs/banner/brand-4.png" alt="">
+                    </div>
+                    <div class="brand-logo">
+                        <img class="img-grey-hover" src="assets/imgs/banner/brand-5.png" alt="">
+                    </div>
+                    <div class="brand-logo">
+                        <img class="img-grey-hover" src="assets/imgs/banner/brand-6.png" alt="">
+                    </div>
+                    <div class="brand-logo">
+                        <img class="img-grey-hover" src="assets/imgs/banner/brand-3.png" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section> -->
+    <section class="bg-grey-9 section-padding">
+        <div class="container pt-25 pb-25">
+            <!-- <div class="heading-tab d-flex">
+                <div class="heading-tab-left wow fadeIn animated">
+                    <h3 class="section-title mb-20"><span>Monthly</span> Best Sell</h3>
+                </div>
+                <div class="heading-tab-right wow fadeIn animated">
+                    <ul class="nav nav-tabs right no-border" id="myTab-1" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="nav-tab-one-1" data-bs-toggle="tab" data-bs-target="#tab-one-1" type="button" role="tab" aria-controls="tab-one" aria-selected="true">Featured</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="nav-tab-two-1" data-bs-toggle="tab" data-bs-target="#tab-two-1" type="button" role="tab" aria-controls="tab-two" aria-selected="false">Popular</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="nav-tab-three-1" data-bs-toggle="tab" data-bs-target="#tab-three-1" type="button" role="tab" aria-controls="tab-three" aria-selected="false">New added</button>
+                        </li>
+                    </ul>
+                </div>
+            </div> -->
+          
+        </div>
+    </section>
+    
+</main>
+    

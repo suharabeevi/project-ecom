@@ -1,0 +1,169 @@
+<form id="add-product-form" method="post" enctype="multipart/form-data">
+    <section class="content-main">
+        <div class="row">
+            <div class="col-6">
+                <div class="content-header">
+                    <h2 class="content-title">Add New Product</h2>
+                    <div class="btn-group">
+                        <button class="btn btn-light rounded font-sm mr-2 text-body hover-up">Save to draft</button>
+                        <button type="submit" class="btn btn-md rounded font-sm hover-up">Publish</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <h6>1. General info</h6>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <label class="form-label">Product title</label>
+                                    <input type="text" name="producttitle" placeholder="Type here" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Description</label>
+                                    <textarea placeholder="Type here" name="description" class="form-control" rows="4"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Category name</label>
+                                    <select class="form-control" name="categoryname">
+                                        <% for(let i=0; i< locals.categoryitem.length; i++) { %>
+                                            <%if (locals.categoryitem[i].status===true) {%>
+                                                <option>
+                                                    <%= locals.categoryitem[i].name %>
+                                                </option>
+                                            <% } %>
+                                        <%} %>
+                                    </select>
+                                </div>
+                            </div> <!-- col.// -->
+                        </div> <!-- row.// -->
+                        <hr class="mb-4 mt-0">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <h6>2. Pricing</h6>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <label class="form-label">Cost in USD</label>
+                                    <input type="text" placeholder="$00.0" name="price" class="form-control">
+                                </div>
+                            </div> <!-- col.// -->
+                        </div> <!-- row.// -->
+                        <hr class="mb-4 mt-0">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <h6>3. Discount</h6>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <input type="text" placeholder="$00.0" name="Discount" class="form-control">
+                                </div>
+                            </div> <!-- col.// -->
+                        </div> <!-- row.// -->
+                        <div class="row">
+                            <div class="col-md-3">
+                                <h6>4. Quantity</h6>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <input type="text" placeholder="Stock" name="numberofstock" class="form-control">
+                                </div>
+                            </div> <!-- col.// -->
+                       
+                        </div> <!-- row.// -->
+                        <hr class="mb-4 mt-0">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <h6>5. Media</h6>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <label class="form-label">Images</label>
+                                    <div id="imgView"></div>
+                                    <input type="file" class="form-control" value="upload" multiple name="Image" required onchange="viewImages(event)">
+
+                                </div>
+                            </div> 
+                        </div> <!-- row.// -->
+                    </div> <!-- card-body.// -->
+                </div> <!-- card mb-4.// -->
+            </div> <!-- col-lg-6.// -->
+        </div> <!-- row.// -->
+    </section>
+</form>
+
+
+
+
+<script>
+
+
+function viewImages(event) {
+  selectedFiles = event.target.files;
+
+  const imgView = document.getElementById('imgView');
+  imgView.innerHTML = ''; // Clear previous images
+
+  const allowedExtensions = /\.(jpg|jpeg|png|gif|avif|webp)$/i;
+
+  for (let i = 0; i < selectedFiles.length; i++) {
+    const file = selectedFiles[i];
+    const fileName = file.name;
+    if (allowedExtensions.test(fileName)) {
+      const img = document.createElement('img');
+      img.className = 'w-25 h-25';
+      img.src = URL.createObjectURL(file);
+      imgView.appendChild(img);
+    }
+  }
+}
+toastr.options = {
+  "closeButton": true,
+  "positionClass": "toast-top-center",
+  "progressBar": true,
+  "preventDuplicates": true,
+  "showDuration": "300",
+  "hideDuration": "1000",
+  "timeOut": "3000",
+  "extendedTimeOut": "1000",
+  "showEasing": "swing",
+  "hideEasing": "linear",
+  "showMethod": "fadeIn",
+  "hideMethod": "fadeOut"
+};
+
+
+    $(document).ready(function () {
+
+        $('#add-product-form').submit((e) => {
+            e.preventDefault()
+
+            const addProductFormData = new FormData(document.getElementById('add-product-form'))
+            
+            
+            $.ajax({
+                url: '/admin/addproduct',
+                type: 'post',
+                data: addProductFormData,
+                contentType: false,
+                processData: false,
+                cache: false
+            }).done(res => {
+                console.log('success')
+                toastr.success('Success!', `${res.message}`)
+                setTimeout(function(){
+
+                    location.reload()
+                }, 5000)
+            }).fail(err => {
+                console.log('fail')
+            })
+        })
+
+    })
+</script>

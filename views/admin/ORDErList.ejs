@@ -1,0 +1,86 @@
+<section class="content-main">
+    <div class="content-header">
+      <div>
+        <h2 class="content-title card-title">Orders </h2>
+      </div>
+      <div>
+        <input type="text" placeholder="Search order ID" class="form-control bg-white">
+        <p style="color: green;">name:<%=user[0].firstName%></p>
+        <p style="color: green;">email:<%=user[0].email%></p>
+      </div>
+      
+      
+    </div>
+    <div class="card mb-4">
+      
+      <div class="card-body">
+        <div class="table-responsive">
+          <table id="uproductTable" class="table table-hover">
+            <thead >
+                <tr>
+                    <th>SL/NO</th>
+                    
+                    <th scope="col">Order Status</th>
+                    <th scope="col">Total</th>
+                    <th scope="col">paymentStatus</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Date</th>
+                    <th scope="col" class="text-end"> Action </th>
+                </tr>
+            </thead>
+            <tbody> 
+              <% if (locals.order?.orders?.length !== 0) { %>
+                <% for(let i=0; i<locals.order?.orders?.length; i++) { %>
+                <tr>
+                    <td><%= i+1 %></td>
+                    
+                    
+                    <td>   <span class="badge rounded-pill alert-success"><%= order.orders[i]. orderConfirm %></span></td>
+                    <td>₹ <%= order.orders[i]. totalPrice %></td>
+  <td>   <span class="badge rounded-pill alert-success"><%= order.orders[i]. paymentStatus %></span></td>
+                    
+  <td>   <span class="badge rounded-pill alert-success"><%= order.orders[i]. paymentMethod %></span></td>
+                    <td><%= order.orders[i].createdAt.toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' }) %></td>
+                    <td class="text-end">
+                        <a href="/admin/order-details/?orderId=<%= order.orders[i]. _id %>&userId=<%= user[0]._id %>"class="btn btn-md rounded font-sm">Detail</a>
+                        <div class="dropdown">
+                            <a href="#" data-bs-toggle="dropdown" class="btn btn-light rounded btn-sm font-sm"> <i class="material-icons md-more_horiz"></i> </a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="#">View detail</a>
+                                <!-- <a class="dropdown-item" href="#">Edit info</a>
+                                <a class="dropdown-item text-danger" href="#">Delete</a> -->
+                            </div>
+                        </div> <!-- dropdown //end -->
+                    </td>
+                </tr>
+                <% } %> 
+                <%} %>
+            </tbody>
+        </table>
+        </div> <!-- table-responsive //end -->
+      </div> <!-- card-body end// -->
+    </div> <!-- card end// -->
+    <div class="pagination-area mt-15 mb-50">
+      <nav aria-label="Page navigation example">
+          <ul class="pagination justify-content-start">
+              
+              <% for(let i=1;i<=pages2;i++){%>
+                  <li class="page-item active">
+                    <a class="page-link" href="/admin/order-list/<%= user[0]._id %>?page=<%=i%>"
+                      ><%= i%></a
+                    >
+                  </li>
+                  <%}%>
+                  
+        
+             
+              <li class="page-item"><a class="page-link" href="#"><i class="material-icons md-chevron_right"></i></a></li>
+          </ul>
+      </nav>
+  </div>
+  </section>
+  <script>
+     $(document).ready(function () {
+        $('#uproductTable').DataTable();
+    });
+  </script>

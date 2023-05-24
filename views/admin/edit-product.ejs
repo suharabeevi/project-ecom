@@ -1,0 +1,112 @@
+<form action="/admin/editproduct?editid=<%=productdata._id%>" method="post">
+<section class="content-main">
+
+    <div class="row">
+        <div class="col-6">
+            <div class="content-header">
+                <h2 class="content-title">Edit product</h2>
+                <div>
+                    <button class="btn btn-light rounded font-sm mr-5 text-body hover-up">Save to draft</button>
+                    <button  type="submit"    class="btn btn-md rounded font-sm hover-up">Publich</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <h6>1. General info</h6>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="mb-4">
+                                <label class="form-label">Product title</label>
+                                <input type="text" name="producttitle"placeholder="Type here" class="form-control" value="<%=productdata.producttitle%>">
+                            </div>
+                            <div class="mb-4">
+                                <label class="form-label">Description</label>
+                                <textarea placeholder="Type here" class="form-control" name="description" rows="4" value=""><%=productdata.description%></textarea>
+
+                            </div>
+                            <div class="mb-4">
+                                <label class="form-label">category name</label>
+                                <select class="form-select" name="categoryname">
+                                    <% for(let i= 0; i< locals.categoryitem.length; i++) { %>
+                                        <% if (locals.categoryitem[i].status === true) { %>
+                                            <% if (locals.categoryitem[i].name === productdata.categoryname) { %>
+                                                <option selected><%= locals.categoryitem[i].name %></option>
+                                            <% } else { %>
+                                                <option><%= locals.categoryitem[i].name %></option>
+                                            <% } %>
+                                        <% } %> 
+                                    <% } %>
+                                </select>
+                                
+                            </div>
+                        </div> <!-- col.// -->
+                    </div> <!-- row.// -->
+                    <hr class="mb-4 mt-0">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <h6>2. Pricing</h6>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="mb-4">
+                                <label class="form-label">Cost in USD</label>
+                                <input name="price"  type="text" placeholder="$00.0" class="form-control" value="<%=productdata.price%>">
+                            </div>
+                        </div> <!-- col.// -->
+                    </div> <!-- row.// -->
+                    <hr class="mb-4 mt-0">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <h6>3. Discount</h6>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="mb-4">
+                                <label class="form-label">discount</label>
+                                <input  name="Discount" type="text" placeholder="%" class="form-control" value="<%=productdata.discount%>">
+                            </div>
+                        </div> <!-- col.// -->
+                    </div>
+                    <hr class="mb-4 mt-0">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <h6>4. Quantiry</h6>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="mb-4">
+                                <label class="form-label">stock</label>
+                                <input  name="numberofstock" type="text" placeholder="stock" class="form-control" value="<%=productdata.stock%>">
+                            </div>
+                        </div> <!-- col.// -->
+                    </div>
+                    <hr class="mb-4 mt-0">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <h6>4. Media</h6>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="mb-4">
+                                <label class="form-label">Images</label>
+                                <!-- <input type="file" name="image" multiple class="form-control" value="" > -->
+                                <input type="file" class="form-control" value="upload" multiple name="Image">
+                                <div class="left">
+                                    <img src="<%= productdata.images.image1 %>" class="img-sm img-thumbnail" alt="Item">
+                                    <img src="<%= productdata.images.image2 %>" class="img-sm img-thumbnail" alt="Item">
+                                </div>
+                            </div>
+                        </div> <!-- col.// -->
+                    </div> <!-- .row end// -->
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</section>
+</form>
+<script>
+
+</script>

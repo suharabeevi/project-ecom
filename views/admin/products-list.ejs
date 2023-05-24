@@ -1,0 +1,89 @@
+
+
+
+<section class="content-main">
+    <div class="content-header">
+        <div>
+            <h2 class="content-title card-title">Products List</h2>
+            <p>Lorem ipsum dolor sit amet.</p>
+        </div>
+        <form class="searchform" action="/admin/search-item" method="post">
+            <div class="input-group">
+                <input list="search_terms" type="text" class="form-control" placeholder="Search term" name="searchItem">
+                <button class="btn btn-light bg" type="submit"> <i class="material-icons md-search"></i></button>
+            </div>
+        </form>
+        
+        <div>
+            <a href="#" class="btn btn-light rounded font-md">Export</a>
+            <a href="#" class="btn btn-light rounded  font-md">Import</a>
+            <a href="/admin/addproduct" class="btn btn-primary btn-sm rounded">Create new</a>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table id="uproductTable" class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Product Image</th>
+                    <th>Product Title</th>
+                    <th>Stock</th>
+                    <th>Price</th>
+                    <th>Category</th>
+                  
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for(let i= 0; i< locals.productdata.length; i++) { %>
+                <tr>
+                    <td><img src="<%= productdata[i].images.image1 %>" class="img-sm img-thumbnail" alt="Item"></td>
+                    <td><%= locals.productdata[i].producttitle %></td>
+                    <td><%= locals.productdata[i].stock %></td>
+                    <td>Rs.<%= locals.productdata[i].price %></td>
+                    <td><%= locals.productdata[i].categoryname %></td>
+                    
+                    <td>
+                        <%if (locals.productdata[i].status===true) {%>
+                        <span class="badge rounded-pill alert-success">Active</span>
+                        <%} else {%>
+                        <span class="badge rounded-pill alert-danger">Disabled</span>
+                        <%}  %>
+                    </td>
+                    <td>
+                        <%if (locals.productdata[i].status===true) {%>
+                        <a href="/admin/editproduct/<%=productdata[i]._id%>" class="btn btn-sm btn-brand rounded font-sm">Edit</a>
+                        <a href="/admin/unlistproduct/<%=productdata[i]._id%>" class="btn btn-sm btn-brand rounded font-sm" style="background-color: rgb(232, 46, 29);">Unlist</a>
+                        <%} else {%>
+                        <a href="/admin/listproduct/<%=productdata[i]._id%>" class="btn btn-sm btn-brand rounded font-sm" style="background-color: rgb(232, 164, 29);">List</a>
+                        <%}  %>
+                    </td>
+                </tr>
+                <%}  %>
+            </tbody>
+        </table>
+    </div>
+    <div class="pagination-area mt-15 mb-50">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-start">
+                
+                <% for(let i=1;i<=pages2;i++){%>
+                    <li class="page-item active">
+                        <li class="page-item "><a class="page-link" href="/admin/productlist?page=<%=i%>"
+                        ><%= i%></a></li>
+                    </li>
+                    <%}%>
+            
+                <li class="page-item"><a class="page-link" href="#"><i class="material-icons md-chevron_right"></i></a></li>
+            </ul>
+        </nav>
+    </div>
+</section>
+
+<script>
+   
+   $(document).ready(function () {
+        $('#uproductTable').DataTable();
+    });
+</script>

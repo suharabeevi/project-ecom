@@ -1,0 +1,254 @@
+<main class="main">
+  <div class="page-header breadcrumb-wrap">
+    <div class="container">
+      <div class="breadcrumb">
+        <a href="index.html" rel="nofollow">Home</a>
+        <span></span> Pages
+        <span></span> Login / Register
+      </div>
+    </div>
+  </div>
+  <section class="pt-150 pb-150">
+    <div class="container">
+      <div class="row ">
+        <div class="col-lg-10 m-auto">
+          <div class="row justify-content-center">
+            <div class="col-lg-5">
+              <div
+                class="login_wrap widget-taber-content p-30 background-white border-radius-10 mb-md-5 mb-lg-0 mb-sm-5 ">
+                <div class="padding_eight_all bg-white">
+                  <div class="heading_s1">
+                    <h2 class="mb-30">Login</h2>
+                  </div>
+                  <% if (locals.loginErr) { %>
+                    <span style="color: red;">
+                      <%= loginErr %>
+                    </span>
+                    <% } %>
+                      <form action="/login" method="post">
+
+                        <div class="form-group">
+                          <input type="text" required="" name="email" placeholder="Your Email">
+                        </div>
+                        <div class="form-group">
+                          <input required="" id="password-field" type="password" name="password" placeholder="Password">
+                          <div class="password-container">
+
+                            <span class="password-toggle" onclick="togglePasswordVisibility()">
+                              <i id="eye-icon" class="fa fa-eye-slash"></i>
+                            </span>
+                          </div>
+
+                        </div>
+                        <div class="login_footer form-group">
+                          <div class="chek-form">
+                            <div class="custome-checkbox">
+                              <input class="form-check-input" type="checkbox" name="checkbox" id="exampleCheckbox1"
+                                value="">
+                              <label class="form-check-label" for="exampleCheckbox1"><span>Remember me</span></label>
+                            </div>
+                          </div>
+                          <a class="text-muted" href="/signup">Create Account</a>
+
+                        </div>
+                        <div class="form-group">
+                          <a href="" type="button" class="" data-bs-toggle="modal" data-bs-target="#Modal">Forget
+                            Password</a>
+                        </div>
+                        <div class="form-group">
+                          <button type="submit" class="btn btn-fill-out btn-block hover-up" name="login">Log in
+                          </button>
+                        </div>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                          data-bs-target="#exampleModal">OTP Login</button>
+                      </form>
+                </div>
+              </div>
+            </div>
+            </section>
+
+            <!-- Modal -->
+            <!-- otp form -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+              aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">OTP login</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <form id="otp-form">
+                      <div id="otp-input">
+                        <label for="phone-number">Phone Number:</label>
+                        <input type="tel" id="phone-number" name="number" required>
+                      </div>
+                      <div>
+                        <button type="submit" id="send-otp-button">Send OTPP</button>
+                      </div>
+                      <div id="timer">01:00</div>
+
+
+                    </form>
+                    <form id="verify-otp" action="">
+                      <div id="code-input">
+                        <label for="phone-number">Enter OTP:</label>
+                        <input type="text" id="otp-code" name="otp" required>
+                        <span>if you did'nt resive the otp please resend by clicking here <a class="text-primary"
+                            href="">Resend</a></span>
+                      </div>
+                      <div>
+                        <button type="submit">verifiy OTP</button>
+                      </div>
+
+                    </form>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+            <!-- forgot password -->
+            <!-- <div class="modal fade" id="Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">forget Password</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form id="otp-form1">
+                <div id="otp-input">
+                    <label for="phone-number">Phone Number:</label>
+                    <input type="tel" id="phone-number" name="number" required>
+                </div>
+                <div>
+                    <button type="submit"  >Send OTP</button>
+                </div>
+                <div id="timer">01:00</div>
+
+
+            </form>
+            <form id="verify-otp1" action="">
+                <div id="code-input">
+                    <label for="phone-number">Enter OTP:</label>
+                    <input type="text" id="otp-code" name="otp" required>
+                    <span>if you did'nt resive the otp please resend by clicking here <a class="text-primary"
+                            href="">Resend</a></span>
+                </div>
+                <div>
+                    <button type="submit">verifiy OTP</button>
+                </div>
+        
+            </form>
+        </div>
+       
+      </div>
+    </div>
+  </div> -->
+
+
+            <script>
+
+              $(document).ready(function () {
+                $('#otp-form').submit(function (e) {
+                  e.preventDefault();
+                  $('#send-otp-button').prop('disabled', true);
+                  $('#send-otp-button').css('background-color','white');
+                  $.ajax({
+                    url: '/send-otp',
+                    type: 'post',
+                    data: $('#otp-form').serialize()
+
+                  }).done(function (res) {
+                    console.log(res);
+
+                  }).fail(function (err) {
+                    console.log(err);
+                  });
+
+                  var countDownDate = new Date().getTime() + 60000;
+                  var x = setInterval(function () {
+                    var now = new Date().getTime();
+                    var distance = countDownDate - now;
+                    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                    document.getElementById("timer").innerHTML = ("0" + minutes).slice(-2) + ":" + ("0" + seconds).slice(-2);
+                    if (distance < 0) {
+                      clearInterval(x);
+                      document.getElementById("timer").innerHTML = "EXPIRED";
+                      document.getElementById("send-otp-button").innerHTML = "Reset OTP";
+                      $('#send-otp-button').prop('disabled', false);
+                      $('#send-otp-button').css('background-color','#088178');
+                    }
+                  }, 1000);
+                });
+
+                $('#verify-otp').submit(function (e) {
+                  e.preventDefault();
+                  $.ajax({
+                    url: '/verify-otp',
+                    type: 'post',
+                    data: $('#verify-otp').serialize()
+                  }).done(function (res) {
+                    Swal.fire({
+                      title: 'succsesfully login',
+                      text: 'succsesfully login',
+                      icon: 'success',
+                      timer: 9000
+                    })
+
+                    location.reload();
+                  }).fail(function (err) {
+                    Swal.fire({
+                      title: 'oops',
+                      text: 'something went wrong',
+                      icon: 'error',
+                      timer: 9000
+                    })
+
+                  });
+                });
+              });
+
+           
+
+
+              function togglePasswordVisibility() {
+                var passwordInput = document.getElementById("password-field");
+                var eyeIcon = document.getElementById("eye-icon");
+
+                if (passwordInput.type === "password") {
+                  passwordInput.type = "text";
+                  eyeIcon.classList.remove("fa-eye-slash");
+                  eyeIcon.classList.add("fa-eye");
+                } else {
+                  passwordInput.type = "password";
+                  eyeIcon.classList.remove("fa-eye");
+                  eyeIcon.classList.add("fa-eye-slash");
+                }
+              }
+
+            </script>
+            <style>
+              #timer {
+                font-size: 24px;
+                font-weight: bold;
+                text-align: center;
+              }
+
+              #timer.EXPIRED {
+                color: red;
+              }
+
+              .form-group {
+                display: flex;
+                align-items: center;
+              }
+
+              #password-field {
+                flex: 1;
+                margin-right: 10px;
+                /* Adjust this value to set the space between the input field and the button */
+              }
+            </style>
