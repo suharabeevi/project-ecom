@@ -38,7 +38,7 @@ module.exports = {
         password: user.password,
         status: true,
       });
-      console.log("bbbbbbbbbbbbbbbbbbbtyygvjg", userDetails);
+      
       userDetails.save();
       resolve(userDetails);
     });
@@ -93,7 +93,6 @@ module.exports = {
         { new: true }
       );
       if (userCart) {
-        console.log(userCart, "hiiiiii");
         return userCart;
       }
       const newCart = await CART.findOneAndUpdate(
@@ -243,7 +242,6 @@ module.exports = {
     try {
       return new Promise(async (resolve, reject) => {
         if (count == -1 && quantity == 1) {
-          console.log("dellllll");
           CART.findOneAndUpdate(
             { userId: userId },
             {
@@ -258,12 +256,10 @@ module.exports = {
             { $inc: { "products.$.quantity": count } },
             { new: true }
           ).then(() => {
-            console.log("jjjjjjjj");
             CART.findOne(
               { _id: cartId, "products.item": proId },
               { "products.$": 1 }
             ).then((cart) => {
-              console.log(cart);
               const newQuantity = cart.products[0].quantity;
               resolve({ status: true, newQuantity: newQuantity });
             });
@@ -375,8 +371,6 @@ module.exports = {
     try {
       return new Promise((resolve, reject) => {
         coupon.find({ couponCode: couponCode }).then(async (couponExist) => {
-          console.log(couponExist[0].validity, "validity");
-
           if (couponExist) {
             if (new Date(couponExist[0].validity) - new Date() > 0) {
               let usersCoupon = await User.findOne({
@@ -409,7 +403,6 @@ module.exports = {
     try {
       return new Promise((resolve, reject) => {
         coupon.findOne({ couponCode: couponCode }).then((couponExist) => {
-          console.log(couponExist, "hhhhhhhhhhhhhhhhhhhhhhhhhhhh");
           if (couponExist) {
             if (new Date(couponExist.validity) - new Date() > 0) {
               if (total >= couponExist.minAmount) {
@@ -462,7 +455,6 @@ module.exports = {
       let userMobile = Number(userDetails.dcontact);
       try {
         let userPassword = await bcrypt.hash(userDetails.npassword, 10);
-        console.log(userPassword, "uuuuuuuuuuu");
         users
           .updateOne(
             { contact: userMobile },
@@ -474,8 +466,6 @@ module.exports = {
           )
           .then((response) => {
             resolve(response);
-
-            console.log(response, "8888888888");
           });
       } catch (err) {
         console.log(err);
@@ -485,7 +475,6 @@ module.exports = {
   totalcoupons: () => {
     return new Promise(async (resolve, reject) => {
       let getcoupon = await coupon.find();
-      console.log(getcoupon);
       resolve(getcoupon);
     });
   },

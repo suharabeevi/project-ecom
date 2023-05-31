@@ -14,19 +14,19 @@
                     </span> <br>
                     <small class="text-muted">Order ID: <%=orderId%></small>
                 </div>
-                <% if (orders[0].orders.orderConfirm !== 'Returned') { %>
+                <% if (orders[0].orders.orderConfirm !== 'Canceled' && orders[0].orders.orderConfirm !== 'Returned') { %>
                     <select id="orderStatus" class="form-select d-inline-block mb-lg-0 mb-15 mw-200">
-        
-                            <option value="confirmed" <%= (orders[0].orders.orderConfirm === 'confirmed') ? 'selected' : '' %>>Confirmed</option>
-                        <option value="shipped" <%= (orders[0].orders.orderConfirm === 'shipped') ? 'selected' : '' %>>Shipped</option>
-                        <option value="delivered" <%= (orders[0].orders.orderConfirm === 'delivered') ? 'selected' : '' %>>Delivered</option>
-                        <option value="canceled" <%= (orders[0].orders.orderConfirm === 'canceled') ? 'selected' : '' %>>Cancel</option>
-                      </select>
-        
-                          <% } else { %>
-                            <p class="text-danger ">Returned</p>
-                          <% } %>
-                          
+                      <option value="confirmed" <%= (orders[0].orders.orderConfirm === 'confirmed') ? 'selected' : '' %>>Confirmed</option>
+                      <option value="shipped" <%= (orders[0].orders.orderConfirm === 'shipped') ? 'selected' : '' %>>Shipped</option>
+                      <option value="delivered" <%= (orders[0].orders.orderConfirm === 'delivered') ? 'selected' : '' %>>Delivered</option>
+                      <option value="canceled" <%= (orders[0].orders.orderConfirm === 'canceled') ? 'selected' : '' %>>Cancel</option>
+                    </select>
+                  <% } else if (orders[0].orders.orderConfirm === 'Canceled') { %>
+                    <p class="text-danger">Cancelled</p>
+                  <% } else if (orders[0].orders.orderConfirm === 'Returned') { %>
+                    <p class="text-danger">Returned</p>
+                  <% } %>
+                  
                         
             </div>
         </header> <!-- card-header end// -->

@@ -236,7 +236,7 @@ module.exports = {
     //             orderhelpers.getTotal(orderId, userId).then((productTotalPrice) => {
     let ordertotalprice = await orderhelpers.getOrderTotal(orderId, userId);
     console.log(userDetails, address, orders, product, ordertotalprice);
-
+console.log(orders,"uuuuuuuuuuuuuiudshcsjdfhhhhhhhhhhhhhhhh");
     // console.log('orderDetails',orderDetails,'orderDetails');
     // console.log('orderId',orderId,'orderId');
     res.render("../views/admin/order-details", {

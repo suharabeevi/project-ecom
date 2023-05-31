@@ -14,7 +14,6 @@ module.exports = {
   getadmin: (email, password) => {
     return new Promise(async (resolve, reject) => {
       const Admin = await admin.findOne({ email: email });
-      console.log("admin is", Admin);
       if (Admin) {
         if (password === Admin.password) {
           const response = Admin;
@@ -67,7 +66,6 @@ module.exports = {
     });
   },
   Saveitems: (category) => {
-    console.log("category", category);
     return new Promise(async (resolve, reject) => {
       let categoryDetails = new categories({
         name: category.category,
@@ -83,7 +81,6 @@ module.exports = {
   listcategories: () => {
     return new Promise(async (resolve, reject) => {
       let getcategory = await categories.find();
-      console.log(getcategory);
       resolve(getcategory);
     });
   },
@@ -118,29 +115,15 @@ module.exports = {
   Editcategory: (dataId) => {
     return new Promise(async (resolve, reject) => {
       let getcategory = await categories.findOne({ _id: dataId });
-      console.log("yyyyyyyyyyyyyyyyyyyyyyyy", getcategory);
-      // console.log(finduser);
       resolve(getcategory);
     });
   },
   showproducts: (pagenum, perPage) => {
     return new Promise(async (resolve, reject) => {
-      console.log("got to main page");
       let findproduct = await product
         .find()
         .skip((pagenum - 1) * perPage)
         .limit(perPage);
-      // let finddiscount = await product.find({status:true});
-      //   let dis= findproduct.map(count=>count.discount)
-      //   let price=findproduct.map(price=>price.price)
-
-      // findproduct.map(count=>{
-      //     let prices=(count.price/100)*count.discount
-      //     resolve(findproduct,prices)
-      //   })
-
-      //   let discountPrice=(price/100)*dis
-
       resolve(findproduct);
     });
   },
@@ -200,7 +183,6 @@ module.exports = {
         .find({ producttitle: { $regex: item, $options: "i" } })
         .then((response) => {
           resolve(response);
-          console.log(response, "ppppppppppppppppppp");
         })
         .catch((error) => {
           reject(error);
@@ -263,7 +245,6 @@ module.exports = {
   },
   deliverGraph: () => {
     return new Promise(async (resolve, reject) => {
-      console.log("lllllllllllllllllllllllllllllllllllllllllllllllllllllll");
       let result = await order.aggregate([
         {
           $unwind: "$orders",
@@ -279,22 +260,20 @@ module.exports = {
           },
         },
       ]);
-      console.log("graphhhhhhhh", result);
+     
       resolve(result);
     });
   },
-
   dashboard: async () => {
     let response = {};
     let numberofproducts = await product.countDocuments({});
 
-    console.log(numberofproducts, "uuuuuuuuu");
+    
 
     response.numberofproducts = numberofproducts;
 
     return response;
   },
-
   addBanner: (texts, Image) => {
     return new Promise(async (resolve, reject) => {
       const newBanner = new banner({
@@ -317,13 +296,12 @@ module.exports = {
         ]);
 
         resolve(orders[0].totalOrders);
-        console.log(orders[0].totalOrders, "Total Orders");
+      
       } catch (error) {
         reject(error);
       }
     });
   },
-
   totalrevenue: () => {
     return new Promise(async (resolve, reject) => {
       let orders = await order.aggregate([
@@ -340,10 +318,9 @@ module.exports = {
         },
       ]);
       resolve(orders[0].totalPriceSum);
-      console.log(orders[0].totalPriceSum, "hlooooooooo");
+      
     });
   },
-
   totalEarning: () => {
     return new Promise(async (resolve, reject) => {
       try {
@@ -362,7 +339,7 @@ module.exports = {
           console.log("No delivered orders found.");
         } else {
           resolve(orders[0].totalPrice);
-          console.log(orders[0].totalPrice, "Total Price for Delivered Orders");
+         
         }
       } catch (error) {
         reject(error);
@@ -371,13 +348,11 @@ module.exports = {
   },
   showbanners: (pagenum, perPage) => {
     return new Promise(async (resolve, reject) => {
-      console.log("got to main page");
       let findbanner = await banner.find();
 
       resolve(findbanner);
     });
   },
-
   getSalesReport: () => {
     try {
       return new Promise((resolve, reject) => {
@@ -431,7 +406,6 @@ module.exports = {
       console.log(error.message);
     }
   },
-
   getBannerList: () => {
     return new Promise((resolve, reject) => {
       banner.find().then((banner) => {
