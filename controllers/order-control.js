@@ -157,7 +157,6 @@ module.exports = {
   verifyPayment: (req, res) => {
     let user = req.session.user;
     orderhelpers.verifyPayment(req.body).then((result) => {
-      console.log("resultttttttttttttttttttttttttttttttttttttttttttt",result);
       orderhelpers
         .changePaymentStatus(user?.user._id, req.body["order[receipt]"])
         .then(() => {

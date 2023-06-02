@@ -6,7 +6,6 @@ const PRODUCT = require("../model/product-model");
 const CART = require("../model/cart-model");
 const objectId = require("mongodb").ObjectId;
 const Product = require("../model/product-model");
-const { response } = require("express");
 const { ObjectId } = require("bson");
 const coupon = require("../model/coupon-model");
 const User = require("../model/user-model");

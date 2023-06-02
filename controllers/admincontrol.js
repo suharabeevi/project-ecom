@@ -156,7 +156,6 @@ module.exports = {
   Get_addproducts: async (req, res) => {
     const result = await adminhelpers.listcategories();
     const categoryitem = JSON.parse(JSON.stringify(result));
-    console.log("SSSSSSSSSSSSSS", categoryitem);
     res.render("admin/add-product", {
       layout: "admin-layout",
       admin: true,
@@ -170,8 +169,6 @@ module.exports = {
     const categoryitem = JSON.parse(JSON.stringify(result));
     const RESULT = await producthelpers.listedit_product(EditproID);
     const productdata = JSON.parse(JSON.stringify(RESULT));
-    console.log(productdata, "yyyyyyyyyyyyyyyyyyy");
-
     res.render("../views/admin/edit-product", {
       layout: "admin-layout",
       admin: true,
@@ -203,7 +200,6 @@ module.exports = {
     userhelpers.Getuser(userid).then((user) => {
       orderhelpers.getOrders(userid, pagenum, perPage).then((order) => {
         console.log(user);
-        console.log(order, "kkkkkkkkk");
         res.render("../views/admin/ORDErList", {
           layout: "admin-layout",
           admin: true,
@@ -227,7 +223,6 @@ module.exports = {
   getOrderDetails: async (req, res) => {
     let orderId = req.query.orderId;
     let userId = req.query.userId;
-    console.log("888888888888", orderId, userId);
     let userDetails = await userhelpers.getDetails(userId);
     let address = await orderhelpers.getOrderAddress(userId, orderId);
 
@@ -236,7 +231,6 @@ module.exports = {
     //             orderhelpers.getTotal(orderId, userId).then((productTotalPrice) => {
     let ordertotalprice = await orderhelpers.getOrderTotal(orderId, userId);
     console.log(userDetails, address, orders, product, ordertotalprice);
-console.log(orders,"uuuuuuuuuuuuuiudshcsjdfhhhhhhhhhhhhhhhh");
     // console.log('orderDetails',orderDetails,'orderDetails');
     // console.log('orderId',orderId,'orderId');
     res.render("../views/admin/order-details", {
@@ -321,10 +315,10 @@ console.log(orders,"uuuuuuuuuuuuuiudshcsjdfhhhhhhhhhhhhhhhh");
   },
 
   postAddBanner: async (req, res) => {
-    const { title, description } = req.body;
 
-    console.log(req.body);
-    // console.log(req.files);
+    console.log(req.files, req.body)
+    const { title, description } = req.body;
+    console.log(req.body,"uuuuuuuuuuuuuuuuuuuuuu");
     try {
       if (req.files) {
         let i = 1;
@@ -359,7 +353,6 @@ console.log(orders,"uuuuuuuuuuuuuiudshcsjdfhhhhhhhhhhhhhhhh");
   getSalesReport: async (req, res) => {
     let admin = req.session.admin;
     let report = await adminhelpers.getSalesReport();
-    console.log(report, "gggggggghhhhhhhhhaaaaaaaaassssssssss");
     let details = [];
     const getDate = (date) => {
       let orderDate = new Date(date);
@@ -374,7 +367,6 @@ console.log(orders,"uuuuuuuuuuuuuiudshcsjdfhhhhhhhhhhhhhhhh");
     report.forEach((orders) => {
       details.push(orders.orders);
     });
-    console.log(details, "uuuuuuuuuuuuuuuuuuuuuuu");
     res.render("../views/admin/Sales-Report", {
       layout: "admin-layout",
       admin: true,

@@ -106,7 +106,7 @@ router.get(
   adminsession.admincheck,
   admincontroller.getAddBanner
 );
-router.post("/add-banner", upload, admincontroller.postAddBanner);
+router.post("/add-banner",upload,admincontroller.postAddBanner);
 router
   .route("/banner-list")
   .get(adminsession.admincheck, admincontroller.getBannerList);

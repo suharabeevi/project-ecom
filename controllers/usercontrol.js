@@ -33,7 +33,6 @@ module.exports = {
     console.log("got data");
     const data = JSON.parse(JSON.stringify(result));
     let Banner = await adminhelpers.showbanners();
-    console.log("prooooooooooducttttttt", Banner);
     if (user) {
       var cartcount = await userhelpers.getcart_count(user?.user._id);
     }
@@ -42,7 +41,6 @@ module.exports = {
     res.render("user/user-homepage", { user, data, cartcount, Banner });
   },
   getLoginPage: (req, res) => {
-    console.log(req.session.logginerr + "aaaaaaaaaaaaaa");
     res.render("user/user-login", { loginErr: req.session.logginerr });
     req.session.logginerr = false;
     console.log(req.session);
@@ -318,7 +316,6 @@ console.log(req.session.noProductFound,'req.session.noProductFound');
 
   sendOtp: async (req, res) => {
     console.log("get otp");
-    console.log(req.body,"jjjjjjjjjjjjjjjjj");
     const { number } = req.body;
     req.session.number = number;
     try {
@@ -341,7 +338,6 @@ console.log(req.session.noProductFound,'req.session.noProductFound');
         .verificationChecks.create({ to: `+91${number}`, code: `${otp}` })
         .then(async (verification_check) => {
           if (verification_check.status == "approved") {
-            console.log(verification_check.status);
             const user = await User.findOne({ contact: number });
             console.log(user);
             if (user) {
@@ -366,7 +362,6 @@ console.log(req.session.noProductFound,'req.session.noProductFound');
   verifyCoupon: (req, res) => {
     let couponCode = req.params.id;
     let userId = req.session.user.user._id;
-    console.log(couponCode, "klklkl");
     userhelpers.verifyCoupon(userId, couponCode).then((response) => {
       res.send(response);
     });
@@ -377,21 +372,18 @@ console.log(req.session.noProductFound,'req.session.noProductFound');
     let userId = req.session.user.user._id;
     console.log(couponCode, userId);
     let total = await userhelpers.totalCheckOutAmount(userId);
-    console.log(total);
     userhelpers.applyCoupon(couponCode, total).then((response) => {
       res.send(response);
     });
   },
 
   updateUserPassword: (req, res) => {
-    console.log(req.body, "]]]]]]]]]]]]]]]]]]]");
     userhelpers.setNewPassword(req.body).then(() => {
       res.redirect("/");
     });
   },
 
-  successpage: async(req, res) => {
-    
+  successpage: async(req, res) => { 
     res.render("../views/user/ordersuccess",);
   },
  

@@ -1,44 +1,54 @@
 
-<main class="main">       
+<main class="main">  
     <section class="home-slider position-relative pt-25 pb-20">
         <div class="container">
-          <div class="row">
-            <div class="col-lg-9">
-              <div class="position-relative">
-                <div
-                  class="hero-slider-1 style-3 dot-style-1 dot-style-1-position-1"
-                >
-                <% for(let i= 0; i<locals.Banner.length;i++) { %>
-                  <div class="single-hero-slider single-animation-wrap">
-                    <div class="container">
-                      <div class="slider-1-height-3 slider-animated-1">
-                        <div class="hero-slider-content-2">
-                          <h4 class="animated"><%=Banner[i].title%></h4>
-                          <h2 class="animated fw-900"><%=Banner[i].description%></h2>
-                          <h1 class="animated fw-900 text-brand">
-                            On All Products
-                          </h1>
-                          <p class="animated">
-                          
-                          </p>
-                          <a
-                            class="animated btn btn-brush btn-brush-3"
-                            href="/shoplist"
-                          >
-                         shop now
-                          </a>
-                        </div class="">
-                        <div class="single-slider-img single-slider-img-1 col-lg-7 col-md-6">
-                            <img class="animated slider-1-1" src="<%= Banner[i].images.image1%>" alt="">
+            <div class="row">
+                <div class="col-lg-9">
+                    <div class="position-relative">
+                        <div class="hero-slider-1 style-3 dot-style-1 dot-style-1-position-1">
+                            <% for(let i= 0; i<locals.Banner.length;i++) { %>
+                            <div class="single-hero-slider single-animation-wrap">
+                                <div class="container">
+                                    <div class="slider-1-height-3 slider-animated-1">
+                                        <div class="hero-slider-content-2">
+                                            <h4 class="animated"><%=Banner[i].title%></h4>
+                                            <h2 class="animated fw-900"><%=Banner[i].description%></h2>
+                                            <h1 class="animated fw-900 text-brand">On All Products</h1>
+                                            <a class="animated btn btn-brush btn-brush-3" href="#"> Shop Now </a>
+                                        </div>
+                                        <div class="slider-img">
+                                            <img src="<%= Banner[i].images.image1%>" alt="">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <% } %>
                         </div>
-                      </div>
+                        <div class="slider-arrow hero-slider-1-arrow style-3"></div>
                     </div>
-                  </div>
-                  <% } %>
-          
-        
-        
-    </section>
+                </div>
+                <div class="col-lg-3 d-md-none d-lg-block">
+                    <div class="banner-img banner-1 wow fadeIn  animated home-3">
+                        <img class="border-radius-10" src="assets/imgs/banner/banner-5.jpg" alt="">
+                        <div class="banner-text">
+                            <span>Accessories</span>
+                            <h4>Save 17% on <br>Autumn Hat</h4>
+                            <a href="shop-grid-right.html">Shop Now <i class="fi-rs-arrow-right"></i></a>
+                        </div>
+                    </div>
+                    <div class="banner-img banner-2 wow fadeIn  animated mb-0">
+                        <img class="border-radius-10" src="assets/imgs/banner/banner-7.jpg" alt="">
+                        <div class="banner-text">
+                            <span>Smart Offer</span>
+                            <h4>Save 20% on <br>Eardrop</h4>
+                            <a href="shop-grid-right.html">Shop Now <i class="fi-rs-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>     
+    
     <!-- <section class="featured section-padding position-relative">            
         <div class="container">
             <div class="row">
