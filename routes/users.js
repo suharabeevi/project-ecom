@@ -32,6 +32,7 @@ router.get(
 // shop list
 router.get(
   "/shoplist",
+  usersession.shop_usercheck,
   usercontroller.Get_shoplistpage
 );
 

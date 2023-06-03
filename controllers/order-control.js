@@ -90,6 +90,11 @@ module.exports = {
   post_usercheckout: async (req, res) => {
     const user = req.session.user;
     let data = req.body;
+    if (!req.body.billing_address) {
+      console.log('address not found');
+      // If billing_address does not exist in req.body, handle the case here
+      return res.json({ error: "Billing address is missing" });
+    }
     let cartproducts = await userhelpers.getCartProductList(user?.user._id);
     // let total1= parseInt(req.body.total)
 

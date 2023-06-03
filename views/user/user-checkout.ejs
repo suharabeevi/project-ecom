@@ -163,7 +163,7 @@
                         <tr>
                           <th>Total</th>
                           <td class="product-subtotal" colspan="2">
-                            <%=total%>
+                            ₹<%=total%>
                           </td>
 
 
@@ -543,9 +543,16 @@
       method: 'POST',
       data: $('#checkOut-form').serialize(),
       success: (response) => {
-        console.log(response,"hhhhhhhhhhhhhh");
-       
-        if (response.cod) {
+        if (response.error) {
+          console.log('address error')
+          Swal.fire({
+            title: 'address required',
+            icon: 'warning',
+            text: 'address required',
+            timer: 5000
+          })
+        } else {
+          if (response.cod) {
           Swal.fire({
             title: 'Order Placed!',
             text: 'Your order has been placed successfully.',
@@ -562,6 +569,7 @@
           console.log(response.amount, '2');
         }
       }
+    }
     })
   }
 
@@ -660,7 +668,5 @@
       }
     })
   }
-
-
 
 </script>
