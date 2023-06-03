@@ -85,52 +85,48 @@ module.exports = {
       }
     });
   },
-  decreamentStock:(proDetails) => {
-    return new Promise(async(resolve,reject) => {
-        try {
-            for(let i=0;i<proDetails.length;i++){
-                await PRODUCT
-                .updateOne(
-                    {
-                        _id: proDetails[i].item
-                    },
-                    {
-                        $inc: {
-                            "stock": -proDetails[i].quantity
-                        }
-                    }
-                )
+  decreamentStock: (proDetails) => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        for (let i = 0; i < proDetails.length; i++) {
+          await PRODUCT.updateOne(
+            {
+              _id: proDetails[i].item,
+            },
+            {
+              $inc: {
+                stock: -proDetails[i].quantity,
+              },
             }
-            resolve();
+          );
         }
-        catch{
-            resolve();
-        }
-    })
-},
-incrementStock: (proDetails) => {
-  console.log(proDetails, "orderproductsssssssss");
-  return new Promise(async (resolve, reject) => {
-    try {
-
-      for (let i = 0; i < proDetails.length; i++) {
-        console.log( proDetails[i][0].quantity);
-        await PRODUCT.updateOne(
-          {
-            _id: proDetails[i][0].productId
-          },
-          {
-            $inc: {
-              "stock": proDetails[i][0].quantity
-            }
-          }
-        );
+        resolve();
+      } catch {
+        resolve();
       }
-      resolve();
-    } catch (error) {
-      reject(error);
-    }
-  });
-}
-
+    });
+  },
+  incrementStock: (proDetails) => {
+    console.log(proDetails, "orderproductsssssssss");
+    return new Promise(async (resolve, reject) => {
+      try {
+        for (let i = 0; i < proDetails.length; i++) {
+          console.log(proDetails[i][0].quantity);
+          await PRODUCT.updateOne(
+            {
+              _id: proDetails[i][0].productId,
+            },
+            {
+              $inc: {
+                stock: proDetails[i][0].quantity,
+              },
+            }
+          );
+        }
+        resolve();
+      } catch (error) {
+        reject(error);
+      }
+    });
+  },
 };

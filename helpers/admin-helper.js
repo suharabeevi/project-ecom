@@ -260,15 +260,13 @@ module.exports = {
           },
         },
       ]);
-     
+
       resolve(result);
     });
   },
   dashboard: async () => {
     let response = {};
     let numberofproducts = await product.countDocuments({});
-
-    
 
     response.numberofproducts = numberofproducts;
 
@@ -296,7 +294,6 @@ module.exports = {
         ]);
 
         resolve(orders[0].totalOrders);
-      
       } catch (error) {
         reject(error);
       }
@@ -318,7 +315,6 @@ module.exports = {
         },
       ]);
       resolve(orders[0].totalPriceSum);
-      
     });
   },
   totalEarning: () => {
@@ -339,7 +335,6 @@ module.exports = {
           console.log("No delivered orders found.");
         } else {
           resolve(orders[0].totalPrice);
-         
         }
       } catch (error) {
         reject(error);
@@ -377,7 +372,6 @@ module.exports = {
   },
 
   postReport: (date) => {
-    console.log(date, "date+++++");
     try {
       let start = new Date(date.startdate);
       let end = new Date(date.enddate);
@@ -398,7 +392,6 @@ module.exports = {
           ])
           .exec()
           .then((response) => {
-            console.log(response, "response---");
             resolve(response);
           });
       });

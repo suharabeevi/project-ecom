@@ -37,7 +37,7 @@ module.exports = {
         password: user.password,
         status: true,
       });
-      
+
       userDetails.save();
       resolve(userDetails);
     });
@@ -478,123 +478,115 @@ module.exports = {
     });
   },
   getQueriesOnShop: (query) => {
-    const search = query?.search
-    const sort = query?.sort
-    const filter = query?.filter
-    const page = parseInt(query?.page) || 1
-    const perPage = 10
-console.log(filter,'----');
+    const search = query?.search;
+    const sort = query?.sort;
+    const filter = query?.filter;
+    const page = parseInt(query?.page) || 1;
+    const perPage = 10;
+    console.log(filter, "----");
     // console.log(search, sort, filter, page, perPage)
 
-        return new Promise( async(resolve, reject) =>{
+    return new Promise(async (resolve, reject) => {
+      let filterObj = {};
 
-            let filterObj = {}
+      if (filter === "category=mens") {
+        filterObj = { categoryname: "mens" };
+      } else if (filter === "category=women") {
+        filterObj = { categoryname: "women" };
+      } else if (filter === "category=Kids") {
+        filterObj = { categoryname: "Kids" };
+      } else if (filter === "category=ladies") {
+        filterObj = { categoryname: "ladies" };
+      }
+      console.log(filterObj, "filterObj");
 
-            if (filter === 'category=mens') {
-                filterObj = { categoryname: 'mens' }
-            } else if (filter === 'category=women') {
-                filterObj = { categoryname: 'women' }
-            } else if (filter === 'category=Kids') {
-                filterObj = { categoryname: 'Kids' }
-            }else if (filter === 'category=ladies') {
-              filterObj = { categoryname: 'ladies' }
-          }
-            console.log(filterObj,'filterObj');
+      //Building search query
 
-            //Building search query
+      let searchQuery = {};
 
-            let searchQuery = {}
+      if (search) {
+        searchQuery = {
+          $or: [
+            { producttitle: { $regex: search, $options: "i" } },
+            { description: { $regex: search, $options: "i" } },
+          ],
+        };
+      }
 
-            if (search) {
-                searchQuery = {
-                    $or: [
-                        { producttitle: { $regex: search, $options: 'i' } },
-                        { description: { $regex: search, $options: 'i' } }
-                    ]
-                }
-            }
+      //Building object based on query parameter
 
-            //Building object based on query parameter
+      let sortObj = {};
 
-            let sortObj = {}
+      if (sort === "-createdAt") {
+        sortObj = { createdAt: -1 };
+      } else if (sort === "createdAt") {
+        sortObj = { createdAt: 1 };
+      } else if (sort === "-price") {
+        sortObj = { price: -1 };
+      } else if (sort === "price") {
+        sortObj = { price: 1 };
+      }
 
-            if (sort === '-createdAt') {
-                sortObj = { createdAt: -1 };
-            } else if (sort === 'createdAt') {
-                sortObj = { createdAt: 1 };
-            } else if (sort === '-price') {
-                sortObj = { price: -1 };
-            } else if (sort === 'price') {
-                sortObj = { price: 1 };
-            }
-
-            const skip = (page - 1) * perPage;
-            const data = await PRODUCT.find({
-                ...searchQuery,
-                ...filterObj,
-            })
-                .sort(sortObj)
-                .skip(skip)
-                .limit(perPage);
-                console.log(data,'product');
-
-
-            const totalProducts = await PRODUCT.countDocuments({
-                ...searchQuery,
-                ...filterObj,
-            });
-
-        //    console.log(searchQuery,'searchQuery');
-        //    console.log(sortObj,'sortObj');
-        //    console.log(skip,'skip');
-        //    console.log(product,'product');
-           console.log(totalProducts,'totalProducts');
-
-            const totalPages = Math.ceil(totalProducts / perPage);
-            if(data.length==0){
-                resolve({
-                    noProductFound:true,
-                    Message:"No results found.."
-                })
-            }
-            resolve({
-                data,
-                noProductFound:false,
-                currentPage: page,
-                totalPages,
-              });
-
-        })    
-
-},
-getShop: () => {
-  try {
-      return new Promise((resolve, reject) => {
-          Product.find().then((product) => {
-              if (product) {
-                  resolve(product)
-              } else {
-                  console.log('product not found');
-              }
-          })
+      const skip = (page - 1) * perPage;
+      const data = await PRODUCT.find({
+        ...searchQuery,
+        ...filterObj,
       })
-  } catch (error) {
+        .sort(sortObj)
+        .skip(skip)
+        .limit(perPage);
+      console.log(data, "product");
+
+      const totalProducts = await PRODUCT.countDocuments({
+        ...searchQuery,
+        ...filterObj,
+      });
+
+      //    console.log(searchQuery,'searchQuery');
+      //    console.log(sortObj,'sortObj');
+      //    console.log(skip,'skip');
+      //    console.log(product,'product');
+      console.log(totalProducts, "totalProducts");
+
+      const totalPages = Math.ceil(totalProducts / perPage);
+      if (data.length == 0) {
+        resolve({
+          noProductFound: true,
+          Message: "No results found..",
+        });
+      }
+      resolve({
+        data,
+        noProductFound: false,
+        currentPage: page,
+        totalPages,
+      });
+    });
+  },
+  getShop: () => {
+    try {
+      return new Promise((resolve, reject) => {
+        Product.find().then((product) => {
+          if (product) {
+            resolve(product);
+          } else {
+            console.log("product not found");
+          }
+        });
+      });
+    } catch (error) {
       console.log(error.message);
-  }
-},
-getCartProductList: (userId) => {
-  return new Promise(async(resolve,reject) => {
-      let cart = await CART
-          .findOne({userId:new ObjectId(userId)})
+    }
+  },
+  getCartProductList: (userId) => {
+    return new Promise(async (resolve, reject) => {
+      let cart = await CART.findOne({ userId: new ObjectId(userId) });
       console.log(cart);
       if (cart !== null) {
-          resolve(cart.products)
+        resolve(cart.products);
       } else {
-          reject(new Error('Cart not found for user'))
+        reject(new Error("Cart not found for user"));
       }
-  })
-},
-
-
-
+    });
+  },
 };

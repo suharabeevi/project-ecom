@@ -14,7 +14,6 @@ module.exports = {
       numberofstock,
     } = req.body;
 
-    console.log(req.body);
     // console.log(req.files);
     try {
       if (req.files) {

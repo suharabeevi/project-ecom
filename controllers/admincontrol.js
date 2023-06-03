@@ -9,7 +9,6 @@ module.exports = {
     let ordercount = await adminhelpers.orderdocument();
     let revenue = await adminhelpers.totalrevenue();
     let Earning = await adminhelpers.totalEarning();
-    console.log(Earning);
     res.render("admin/admin-homepage", {
       layout: "admin-layout",
       admin: true,
@@ -33,7 +32,6 @@ module.exports = {
       let Earning = await adminhelpers.totalEarning();
 
       let admin = await adminhelpers.getadmin(email, password);
-      console.log(admin);
       if (admin) {
         req.session.admin = admin;
         res.render("admin/admin-homepage", {
@@ -48,13 +46,12 @@ module.exports = {
         res.redirect("/admin/adminlogin");
       }
     } catch (error) {
-      console.log("err message",error.message);
+      console.log("err message", error.message);
       console.log(error);
     }
   },
   getuserslist: async (req, res) => {
     const pagenum = req.query.page;
-    console.log(pagenum);
     const currentPage = pagenum;
     const perPage = 4;
     const documentCount = await adminhelpers.DocumentCount();
@@ -87,8 +84,6 @@ module.exports = {
     });
   },
   addcategories: async (req, res) => {
-    console.log(req.body);
-
     let name = req.body.category;
     let data = req.body;
 
@@ -104,7 +99,7 @@ module.exports = {
   },
   removecategory: (req, res) => {
     let removecategoryid = req.params.id;
-    console.log(removecategoryid);
+
     adminhelpers
       .unlistcategory(removecategoryid)
       .then(res.redirect("/admin/categories"));
@@ -128,7 +123,6 @@ module.exports = {
     });
   },
   updatecategory: (req, res) => {
-    console.log(req.body);
     const editID = req.params.id;
     const { category, stocknumber, description } = req.body;
     adminhelpers
@@ -137,12 +131,12 @@ module.exports = {
   },
   productlist: async (req, res) => {
     const pagenum = req.query.page;
-    console.log(pagenum);
+
     const currentPage = pagenum;
     const perPage = 4;
     const documentCount = await adminhelpers.documentCount();
     let pages2 = Math.ceil(parseInt(documentCount) / perPage);
-    console.log(documentCount, "hiiii");
+
     const result = await producthelpers.listproducts(pagenum, perPage);
     const productdata = JSON.parse(JSON.stringify(result));
 
@@ -164,7 +158,7 @@ module.exports = {
   },
   Edit_product: async (req, res) => {
     let EditproID = req.params.id;
-    console.log(EditproID, "88888");
+
     const result = await adminhelpers.listcategories();
     const categoryitem = JSON.parse(JSON.stringify(result));
     const RESULT = await producthelpers.listedit_product(EditproID);
@@ -178,8 +172,7 @@ module.exports = {
   },
   Update_product: (req, res) => {
     let { editid } = req.query;
-    console.log(editid);
-    console.log(req.body);
+
     let data = req.body;
     producthelpers
       .findproduct(editid, data)
@@ -188,13 +181,13 @@ module.exports = {
 
   getOrderList: async (req, res) => {
     let userid = req.params.id;
-    console.log(userid);
+
     const pagenum = req.query.page;
-    console.log(pagenum);
+
     const currentPage = pagenum;
     const perPage = 5;
     const documentCount = await adminhelpers.DOCUMENTCount(userid);
-    console.log(documentCount);
+
     let pages2 = Math.ceil(parseInt(documentCount) / perPage);
 
     userhelpers.Getuser(userid).then((user) => {
@@ -213,7 +206,7 @@ module.exports = {
   getorderslist: async (req, res) => {
     const data = await orderhelpers.findings();
     // const data=JSON.parse(JSON.stringify(result));
-    console.log(data);
+
     res.render("../views/admin/order-list", {
       layout: "admin-layout",
       admin: true,
@@ -230,7 +223,7 @@ module.exports = {
     let product = await orderhelpers.getOrderedProducts(orderId, userId);
     //             orderhelpers.getTotal(orderId, userId).then((productTotalPrice) => {
     let ordertotalprice = await orderhelpers.getOrderTotal(orderId, userId);
-    console.log(userDetails, address, orders, product, ordertotalprice);
+
     // console.log('orderDetails',orderDetails,'orderDetails');
     // console.log('orderId',orderId,'orderId');
     res.render("../views/admin/order-details", {
@@ -246,12 +239,12 @@ module.exports = {
   },
   searchItemCoupon: async (req, res) => {
     const pagenum = req.query.page;
-    console.log(pagenum);
+
     const currentPage = pagenum;
     const perPage = 5;
     const documentCount = await adminhelpers.documentCount();
     let pages2 = Math.ceil(parseInt(documentCount) / perPage);
-    console.log(req.body);
+
     await adminhelpers
       .searchItemCoupon(req.body.searchItem)
       .then((productdata) => {
@@ -272,7 +265,6 @@ module.exports = {
   },
   generatorCouponCode: (req, res) => {
     adminhelpers.generatorCouponCode().then((couponCode) => {
-      console.log(couponCode, "-----");
       res.send(couponCode);
     });
   },
@@ -315,10 +307,8 @@ module.exports = {
   },
 
   postAddBanner: async (req, res) => {
-
-    console.log(req.files, req.body)
     const { title, description } = req.body;
-    console.log(req.body,"uuuuuuuuuuuuuuuuuuuuuu");
+
     try {
       if (req.files) {
         let i = 1;
@@ -406,8 +396,6 @@ module.exports = {
   getBannerList: (req, res) => {
     let admin = req.session.admin;
     adminhelpers.getBannerList().then((banner) => {
-      console.log(banner, "banner");
-
       res.render("../views/admin/banner-list", {
         layout: "admin-layout",
         admin,
@@ -417,7 +405,6 @@ module.exports = {
   },
 
   deleteBanner: (req, res) => {
-    console.log(req.params.id);
     adminhelpers.deleteBanner(req.params.id).then((response) => {
       res.send(response);
     });

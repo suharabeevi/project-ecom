@@ -35,11 +35,11 @@ module.exports = {
       coupons,
     });
   },
-  
+
   post_address: async (req, res) => {
     let user = req.session.user;
     let data = req.body;
-    
+
     orderhelpers.postAddress(data, user?.user._id).then((response) => {
       res.redirect("/usercheckout");
     });
@@ -60,7 +60,6 @@ module.exports = {
       await orderhelpers
         .get_EditAddress(editdata, user?.user._id)
         .then((data) => {
-         
           res.json({ address: data });
         });
     } catch (error) {
@@ -91,25 +90,30 @@ module.exports = {
   post_usercheckout: async (req, res) => {
     const user = req.session.user;
     let data = req.body;
-    let cartproducts= await userhelpers.getCartProductList(user?.user._id);
+    let cartproducts = await userhelpers.getCartProductList(user?.user._id);
     // let total1= parseInt(req.body.total)
-    
+
     let total = parseInt(data.total);
     await orderhelpers.placeOrder(data).then(async (result) => {
-      let response={}
-      orderid=result.id
+      let response = {};
+      orderid = result.id;
       if (data.payment_method === "cod") {
-        productHelper.decreamentStock(cartproducts).then(() => {}).catch((err) =>console.log(err));
-        response.cod=true
-        response.orderid=orderid
+        productHelper
+          .decreamentStock(cartproducts)
+          .then(() => {})
+          .catch((err) => console.log(err));
+        response.cod = true;
+        response.orderid = orderid;
         res.json(response);
       } else if (data.payment_method === "razorpay") {
-   await productHelper.decreamentStock(cartproducts).then(() => {}).catch((err) =>console.log(err));
+        await productHelper
+          .decreamentStock(cartproducts)
+          .then(() => {})
+          .catch((err) => console.log(err));
         await orderhelpers
           .generateRazorpay(user?.user._id, total)
           .then((order) => {
-         
-            response.Razorpay=true
+            response.Razorpay = true;
             res.json(order);
           });
       }
@@ -118,17 +122,16 @@ module.exports = {
   Get_Userorders: async (req, res) => {
     const user = req.session.user;
     let orders = await orderhelpers.getOrders(user?.user._id);
-  
   },
   orderDetails: async (req, res) => {
     let user = req.session.user;
     let { orderid } = req.query;
-   
+
     let cartcount = await userhelpers.getcart_count(user?.user._id);
     let orders = await orderhelpers.findOrder(orderid, user?.user._id);
     let products = await orderhelpers.findProduct(orderid, user?.user._id);
     let Address = await orderhelpers.findAddress(orderid, user?.user._id);
-    
+
     //     orderHelpers.findAddress(orderId, userId).then((address) => {
 
     //             console.log(orders, '====');
@@ -145,7 +148,7 @@ module.exports = {
     let cartcount = await userhelpers.getcart_count(user?.user._id);
     let address = await orderhelpers.get_Address(user?.user._id);
     let orders = await orderhelpers.getOrders(user?.user._id);
-   
+
     res.render("../views/user/user-account", {
       user,
       cartcount,
@@ -167,17 +170,22 @@ module.exports = {
         });
     });
   },
-  cancelOrder:async (req, res) => {
+  cancelOrder: async (req, res) => {
     let orderId = req.query.id;
-   let total = req.query.total;
+    let total = req.query.total;
     let user = req.session.user;
-    
-   
-    orderhelpers.cancelOrder(orderId).then(async(canceled) => {
-      let orderproducts = await orderhelpers.findProduct(orderId,user?.user._id);
-      
-     await productHelper.incrementStock(orderproducts).then(() => {}).catch((err) =>console.log(err));
-     
+
+    orderhelpers.cancelOrder(orderId).then(async (canceled) => {
+      let orderproducts = await orderhelpers.findProduct(
+        orderId,
+        user?.user._id
+      );
+
+      await productHelper
+        .incrementStock(orderproducts)
+        .then(() => {})
+        .catch((err) => console.log(err));
+
       // orderHelpers.addWallet(userId, total).then((walletStatus) => {
       // console.log(canceled, 'cancel', walletStatus, 'wallet');
       res.send(canceled);
@@ -185,20 +193,27 @@ module.exports = {
     });
   },
 
-  returnOrder: async(req, res) => {
+  returnOrder: async (req, res) => {
     let orderId = req.query.id;
     let total = req.query.total;
     let user = req.session.user;
-    orderhelpers.returnOrder(orderId, user?.user._id).then(async(returnOrderStatus) => {
+    orderhelpers
+      .returnOrder(orderId, user?.user._id)
+      .then(async (returnOrderStatus) => {
+        let orderproducts = await orderhelpers.findProduct(
+          orderId,
+          user?.user._id
+        );
 
-      let orderproducts = await orderhelpers.findProduct(orderId,user?.user._id);
-     
-     await productHelper.incrementStock(orderproducts).then(() => {}).catch((err) =>console.log(err));
-     
-      res.send(returnOrderStatus);
-      // })
-      // })
-    });
+        await productHelper
+          .incrementStock(orderproducts)
+          .then(() => {})
+          .catch((err) => console.log(err));
+
+        res.send(returnOrderStatus);
+        // })
+        // })
+      });
   },
 
   // })

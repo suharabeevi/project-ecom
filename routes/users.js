@@ -32,7 +32,6 @@ router.get(
 // shop list
 router.get(
   "/shoplist",
-  usersession.shop_usercheck,
   usercontroller.Get_shoplistpage
 );
 
@@ -45,7 +44,7 @@ router.get(
 // product details
 router.get("/productdetails", usercontroller.Get_singleproductpage);
 
-router.get("/cart", usercontroller.Get_usercart);
+router.get("/cart",usersession.shop_usercheck, usercontroller.Get_usercart);
 //user cart
 router.get(
   "/Usercart/:id",
