@@ -7,17 +7,14 @@ const CART = require("../model/cart-model");
 const ORDER = require("../model/order-model");
 const Razorpay = require("razorpay");
 const crypto =require("crypto");
-const { log } = require("console");
 require("dotenv").config();
 
 const keyId = process.env.RAZORPAY_KEY_ID;
 const keySecret = process.env.RAZORPAY_KEY_SECRET;
-
 var instance = new Razorpay({
   key_id: keyId,
   key_secret: keySecret,
 });
-
 module.exports = {
   postAddress: (data, user) => {
     try {

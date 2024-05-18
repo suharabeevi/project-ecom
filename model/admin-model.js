@@ -15,8 +15,7 @@ const adminschema = new mongoose.Schema({
           status: {
             type:Boolean,
             required:true,
-           },
-      
+           }  
 });
 adminschema.pre("save", async function (next){
     try{

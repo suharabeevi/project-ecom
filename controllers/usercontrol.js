@@ -322,7 +322,6 @@ module.exports = {
   verifyOtp: async (req, res) => {
     const { otp } = req.body;
     const number = req.session?.number;
-
     try {
       await client.verify.v2
         .services(serviceSid)
